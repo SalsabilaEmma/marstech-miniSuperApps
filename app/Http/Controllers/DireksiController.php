@@ -51,7 +51,6 @@ class DireksiController extends Controller
     {
         $title = 'Direksi';
         $data_direksi = Direksi::find($id);
-        // dd($data_direksi->file);
         return view('admin.direksi.edit', compact('data_direksi','title'));
     }
 
