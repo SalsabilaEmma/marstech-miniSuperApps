@@ -25,7 +25,9 @@ use App\Http\Controllers\PromoController;
 
 use App\Http\Controllers\AssyncController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\PencapaianController;
+use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\VideoInteraksiController;
 use App\Models\Pencapaian;
 
@@ -206,9 +208,29 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::GET('/direksi/edit/{id?}', [DireksiController::class, 'edit'])->name('direksi.edit');
     Route::POST('/direksi/update/{id?}', [DireksiController::class, 'update'])->name('direksi.update');
     Route::DELETE('/direksi/delete/{id?}', [DireksiController::class, 'destroy'])->name('direksi.destroy');
+    /** Footer ............................................................................................. */
+    Route::GET('/footer/list', [FooterController::class, 'list'])->name('footer.list');
+    Route::POST('/footer/store', [FooterController::class, 'store'])->name('footer.store');
+    Route::GET('/footer/edit/{id?}', [FooterController::class, 'edit'])->name('footer.edit');
+    Route::POST('/footer/update/{id?}', [FooterController::class, 'update'])->name('footer.update');
+    Route::DELETE('/footer/delete/{id?}', [FooterController::class, 'destroy'])->name('footer.destroy');
+    /** ------------------------------------------------------------------------------------------ End Tentang Kami Dropdown */
+
+    /** User Account ............................................................................................. */
+    Route::GET('/user-account/list', [UserAccountController::class, 'list'])->name('user.account.list');
+    Route::POST('/user-account/store', [UserAccountController::class, 'store'])->name('user.account.store');
+    Route::GET('/user-account/edit/{id?}', [UserAccountController::class, 'edit'])->name('user.account.edit');
+    Route::POST('/user-account/update/{id?}', [UserAccountController::class, 'update'])->name('user.account.update');
+    Route::DELETE('/user-account/delete/{id?}', [UserAccountController::class, 'destroy'])->name('user.account.destroy');
 
 });
 
+
+
+
+
+
+       
 // User Login -----------------------------------------------------------------------------------------------------
 Route::middleware(['auth', 'user.login'])->group(function () {
     // return view('dashboard');

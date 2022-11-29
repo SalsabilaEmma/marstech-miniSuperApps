@@ -10,7 +10,7 @@
 
             <nav id="navbar" class="navbar">
                 <ul style="font-size: 14pt">
-                    <li><a class="nav-link scrollto" href="#">BERANDA</a></li>
+                    <li><a href="#">BERANDA</a></li>
                     <li class="dropdown megamenu"><a href="#"><span>PRODUK</span> <i
                                 class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
@@ -147,7 +147,7 @@
                 <i class="bi bi-list mobile-nav-toggle d-none"></i>
             </nav><!-- .navbar -->
 
-            <a class="btn-getstarted scrollto btn-sm" href="{{ route('login') }}">Login</a>
+            <a class="btn-getstarted scrollto" href="{{ route('login') }}">Login</a>
             {{-- <a class="btn-outline-getstarted scrollto btn-sm" href="#">Registrasi</a> --}}
 
         </div>

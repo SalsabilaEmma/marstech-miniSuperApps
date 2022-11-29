@@ -69,10 +69,10 @@
                     <li><a class="nav-link" href="{{ route('penghargaan.list') }}">Penghargaan</a></li>
                     <li><a class="nav-link" href="{{ route('direksi.list') }}">Direksi</a></li>
                     <li><a class="nav-link" href="{{ route('jaringan.list') }}">Jaringan Kantor</a></li>
-                    <li><a class="nav-link" href="editable-table.html">Footer</a></li>
+                    <li><a class="nav-link" href="{{ route('footer.list') }}">Footer</a></li>
                 </ul>
             </li>
-            <li><a class="nav-link" href="blank.html"><i data-feather="user"></i><span>User Account</span></a></li>
+            <li><a class="nav-link" href="{{ route('user.account.list') }}"><i data-feather="user"></i><span>User Account</span></a></li>
         </ul>
     </aside>
 </div>
