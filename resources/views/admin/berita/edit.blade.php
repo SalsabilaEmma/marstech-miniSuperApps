@@ -39,10 +39,10 @@
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="form-group">
+                                <div class="form-group">
                                     <label>Gambar {{ $title }}</label>
                                     <div class="input-group">
-                                        <input type="file" required name="file" id="file"
+                                        <input type="file" required name="file" id="file" accept="image/*" id="file-input" onchange="imageExtensionValidate(this)"
                                             class="form-control @error('file') is-invalid @enderror">
                                         @error('file')
                                             <small>{{ $message }}</small>
@@ -58,7 +58,7 @@
                                                 src="{{ url('image/berita/' . $data_berita->file) }}" alt="Banner">
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div class="text-right">
                                     <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Ubah</button>
                                     <a href="{{ route('berita.list') }}">

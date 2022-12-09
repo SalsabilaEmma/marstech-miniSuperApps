@@ -12,11 +12,22 @@ class BeritaController extends Controller
     /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.berita');
+        $title = 'Berita';
+        $author = 'Admin BPR Ciki';
+        $data_berita = Berita::latest()->get();
+        return view('user.berita', compact('title', 'data_berita', 'author'));
     }
-    public function indexBeritaDetail()
+    public function indexBeritaDetail($id)
     {
-        return view('user.berita-detail');
+        $title = 'Berita';
+        $author = 'Admin BPR Ciki';
+        $list_berita = Berita::latest()->paginate(5);
+        $data_berita = Berita::findOrFail($id);
+        return view('user.berita-detail', compact('title', 'data_berita', 'author','list_berita'));
+    }
+    public function listUser()
+    {
+        # code...
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */
@@ -32,22 +43,22 @@ class BeritaController extends Controller
         $request->validate([
             'judul' => 'required',
             'isi' => 'required',
-            // 'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
         ]);
 
-        // $image = $request->file('file');
-        // $judulfile = time() . '.' . $image->getClientOriginalExtension();
+        $image = $request->file('file');
+        $judulfile = time() . '.' . $image->getClientOriginalExtension();
 
-        // Image::make($image)->resize(400, 400, function ($constraint) {  // thumbnail
-        //     $constraint->aspectRatio();
-        // })->save('image/berita/'.$judulfile);
-        // $image->move('image/berita-original/', $judulfile); // ukuran file asli
+        Image::make($image)->resize(400, 400, function ($constraint) {  // thumbnail
+            $constraint->aspectRatio();
+        })->save('image/berita/'.$judulfile);
+        $image->move('image/berita-original/', $judulfile); // ukuran file asli
 
         $data_berita = new Berita;
         $data_berita->id = $request->id;
         $data_berita->judul = $request->judul;
         $data_berita->isi = $request->isi;
-        // $data_berita->file = $judulfile;
+        $data_berita->file = $judulfile;
         $data_berita->save();
         // dd($data_berita);
         return redirect()->back()->with('success', 'Data Berhasil Ditambahkan!');
@@ -105,34 +116,34 @@ class BeritaController extends Controller
         $request->validate([
             'judul' => 'required',
             'isi' => 'required',
-            // 'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
         ]);
-        // if(File::exists(public_path('/image/berita/'.$data_berita->file))){
-        //     // delete file lama
-        //     File::delete(public_path('/image/berita/'.$data_berita->file));
-        //     File::delete(public_path('/image/berita-original/'.$data_berita->file));
-        //     // upload file baru
-        //     $image = $request->file('file');
-        //     $namafile = time() . '.' . $image->getClientOriginalExtension();
-        //     Image::make($image)->resize(400, 400, function ($constraint) {  // thumbnail
-        //         $constraint->aspectRatio();
-        //     })->save('image/berita/'.$namafile);
-        //     $image->move('image/berita-original/', $namafile); // ukuran file asli
-        //     // perubahan judul & file
-        //     $data_berita->judul = $request->judul;
-        //     $data_berita->isi = $request->isi;
-        //     $data_berita->file = $namafile;
-        //     $data_berita->save();
-        //     return redirect()->route('data_berita.list')->with(['success' => 'Data Berhasil Diubah!']);
-        // } else {
-        //     return redirect()->back()->with(['error' => 'Data Tidak Ditemukan!']);
-        // }
+        if(File::exists(public_path('/image/berita/'.$data_berita->file))){
+            // delete file lama
+            File::delete(public_path('/image/berita/'.$data_berita->file));
+            File::delete(public_path('/image/berita-original/'.$data_berita->file));
+            // upload file baru
+            $image = $request->file('file');
+            $namafile = time() . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(400, 400, function ($constraint) {  // thumbnail
+                $constraint->aspectRatio();
+            })->save('image/berita/'.$namafile);
+            $image->move('image/berita-original/', $namafile); // ukuran file asli
+            // perubahan judul & file
+            $data_berita->judul = $request->judul;
+            $data_berita->isi = $request->isi;
+            $data_berita->file = $namafile;
+            $data_berita->save();
+            return redirect()->route('berita.list')->with(['success' => 'Data Berhasil Diubah!']);
+        } else {
+            return redirect()->back()->with(['error' => 'Data Tidak Ditemukan!']);
+        }
 
-        $data_berita->update([
-            'judul'     => $request->judul,
-            'isi'   => $request->isi
-        ]);
-        return redirect()->route('berita.list')->with(['success' => 'Data Berhasil Diubah!']);
+        // $data_berita->update([
+        //     'judul'     => $request->judul,
+        //     'isi'   => $request->isi
+        // ]);
+        // return redirect()->route('berita.list')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     public function destroy($id)

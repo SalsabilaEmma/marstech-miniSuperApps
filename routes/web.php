@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VismisController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\SejarahController;
 use App\Http\Controllers\DireksiController;
 use App\Http\Controllers\PenghargaanController;
@@ -23,10 +24,12 @@ use App\Http\Controllers\ProdukDepositoController;
 use App\Http\Controllers\ProdukKreditController;
 use App\Http\Controllers\PromoController;
 
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\AssyncController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\PencapaianController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\VideoInteraksiController;
 use App\Models\Pencapaian;
@@ -48,30 +51,50 @@ use App\Models\Pencapaian;
 
 /** ------------------------------------------ USER -------------------------------------------------------- */
 Route::GET('/', [Controller::class, 'index'])->name('index');
+
 Route::GET('/kontak', [ContactController::class, 'index'])->name('contact');
+
 Route::GET('/visi-misi', [VismisController::class, 'index'])->name('vismis');
+
 Route::GET('/sejarah', [SejarahController::class, 'index'])->name('sejarah');
+
 Route::GET('/direksi', [DireksiController::class, 'index'])->name('direksi');
+
 Route::GET('/penghargaan', [PenghargaanController::class, 'index'])->name('penghargaan');
+
 Route::GET('/jaringan-kantor', [JaringanKantorController::class, 'index'])->name('jaringan.kantor');
+
 Route::GET('/karir', [KarirController::class, 'index'])->name('karir');
-Route::GET('/karir-detail', [KarirController::class, 'indexKarirDetail'])->name('karir.detail');
+Route::GET('/karir-detail/{id?}', [KarirController::class, 'indexKarirDetail'])->name('karir.detail');
+
 Route::GET('/berita', [BeritaController::class, 'index'])->name('berita');
-Route::GET('/berita-detail', [BeritaController::class, 'indexBeritaDetail'])->name('berita.detail');
+Route::GET('/berita/show', [BeritaController::class, 'listUser'])->name('list.user');
+Route::GET('/berita-detail/{id?}', [BeritaController::class, 'indexBeritaDetail'])->name('berita.detail');
+
 Route::GET('/lelang', [LelangController::class, 'index'])->name('lelang');
-Route::GET('/lelang-detail', [LelangController::class, 'indexLelangDetail'])->name('lelang.detail');
+Route::GET('/lelang-detail/{id?}', [LelangController::class, 'indexLelangDetail'])->name('lelang.detail');
+
 Route::GET('/edukasi', [EdukasiController::class, 'index'])->name('edukasi');
+
 Route::GET('/galeri', [GaleriController::class, 'index'])->name('galeri');
+
 Route::GET('/download-area', [DownloadController::class, 'index'])->name('download');
+
 Route::GET('/laporan', [LaporanController::class, 'index'])->name('laporan');
+
 Route::GET('/simulasi-kredit', [Controller::class, 'indexSimulasiKredit'])->name('simulasi.kredit');
+
 Route::GET('/buka-tabungan', [BukaTabunganController::class, 'index'])->name('buka.tabungan');
+
 Route::GET('/buka-deposito', [BukaDepositoController::class, 'index'])->name('buka.deposito');
+
 Route::GET('/pengajuan-kredit', [PengajuanKreditController::class, 'index'])->name('pengajuan.kredit');
 
 Route::GET('/produk-tabungan', [ProdukTabunganController::class, 'index'])->name('produk.tabungan');
 Route::GET('/produk-deposito', [ProdukDepositoController::class, 'index'])->name('produk.deposito');
 Route::GET('/produk-kredit', [ProdukKreditController::class, 'index'])->name('produk.kredit');
+
+Route::POST('/', [SubscribeController::class, 'store'])->name('subscribe.store');
 
 /** -------------------------------------------------------------------------------------------------- Wilayah */
 Route::GET('/provinsi', [AssyncController::class, 'provinsi'])->name('provinsi');
@@ -80,9 +103,44 @@ Route::GET('/kecamatan', [AssyncController::class, 'kecamatan'])->name('kecamata
 Route::GET('/desa', [AssyncController::class, 'desa'])->name('desa');
 /** -------------------------------------------------------------------------------------------------- End Wilayah */
 
+/** LOGIN GOOGLE */
+// Route::controller(GoogleController::class)->group(function(){
+//     Route::get('auth/google', 'loginWithGoogle')->name('auth.google');
+//     Route::get('auth/google/callback', 'handleGoogleCallBack');
+// });
+Route::prefix('google')->name('google.')->group( function() {
+    Route::GET('auth', [GoogleController::class, 'loginWithGoogle'])->name('login');
+    Route::any('callback', [GoogleController::class, 'callBackFromGoogle'])->name('callback');
+
+});
+
 /** ------------------------------------------ ADMIN -------------------------------------------------------- */
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::GET('/dashboard', [Controller::class, 'indexAdmin'])->name('dashboard');
+    /** --------------------------------------------------------------------------------------------- Calon Nasabah Dropdown */
+    /** Pengajuan Buka Deposito ...................................................................................... */
+    Route::GET('/buka-deposito/list', [BukaDepositoController::class, 'list'])->name('buka.deposito.list');
+    Route::GET('/buka-deposito/detail/{id?}', [BukaDepositoController::class, 'detail'])->name('buka.deposito.detail');
+    Route::DELETE('/buka-deposito/delete/{id?}', [BukaDepositoController::class, 'destroy'])->name('buka.deposito.destroy');
+    /** Pengajuan Buka Tabungan ...................................................................................... */
+    Route::GET('/buka-tabungan/list', [BukaTabunganController::class, 'list'])->name('buka.tabungan.list');
+    Route::GET('/buka-tabungan/detail/{id?}', [BukaTabunganController::class, 'detail'])->name('buka.tabungan.detail');
+    Route::DELETE('/buka-tabungan/delete/{id?}', [BukaTabunganController::class, 'destroy'])->name('buka.tabungan.destroy');
+    /** Pengajuan Kredit ...................................................................................... */
+    Route::GET('/buka-kredit/list', [PengajuanKreditController::class, 'list'])->name('buka.kredit.list');
+    Route::GET('/buka-kredit/detail/{id?}', [PengajuanKreditController::class, 'detail'])->name('buka.kredit.detail');
+    Route::DELETE('/buka-kredit/delete/{id?}', [PenghargaanController::class, 'destroy'])->name('buka.kredit.destroy');
+    /** --------------------------------------------------------------------------------------------- End Calon Nasabah Dropdown */
+
+    /** Kontak ...................................................................................... */
+    Route::GET('/kontak/list', [ContactController::class, 'list'])->name('kontak.list');
+    Route::GET('/kontak/detail/{id?}', [ContactController::class, 'detail'])->name('kontak.detail');
+    Route::DELETE('/kontak/delete/{id?}', [ContactController::class, 'destroy'])->name('kontak.destroy');
+    /** Subscriber ...................................................................................... */
+    Route::GET('/subscribe/list', [SubscribeController::class, 'list'])->name('subscribe.list');
+    Route::GET('/subscribe/detail/{id?}', [SubscribeController::class, 'detail'])->name('subscribe.detail');
+    Route::DELETE('/subscribe/delete/{id?}', [SubscribeController::class, 'destroy'])->name('subscribe.destroy');
+
     /** -------------------------------------------------------------------------------------------------- Produkk Dropdown */
     /** Produk Deposito ............................................................................................. */
     Route::GET('/produk-deposito/list', [ProdukDepositoController::class, 'list'])->name('produk.deposito.list');
@@ -178,6 +236,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::DELETE('/laporan/delete/{id?}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
 
     /** ------------------------------------------------------------------------------------------ Tentang Kami Dropdown */
+    /** About Us ............................................................................................. */
+    Route::GET('/about/list', [AboutController::class, 'list'])->name('about.list');
+    Route::POST('/about/store', [AboutController::class, 'store'])->name('about.store');
+    Route::GET('/about/edit/{id?}', [AboutController::class, 'edit'])->name('about.edit');
+    Route::POST('/about/update/{id?}', [AboutController::class, 'update'])->name('about.update');
     /** Sejarah ............................................................................................. */
     Route::GET('/sejarah/list', [SejarahController::class, 'list'])->name('sejarah.list');
     Route::POST('/sejarah/store', [SejarahController::class, 'store'])->name('sejarah.store');
@@ -230,7 +293,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
 
-       
+
 // User Login -----------------------------------------------------------------------------------------------------
 Route::middleware(['auth', 'user.login'])->group(function () {
     // return view('dashboard');

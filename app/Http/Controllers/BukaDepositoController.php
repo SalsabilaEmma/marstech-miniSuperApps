@@ -2,83 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BukaDeposito;
+use App\Models\Deposito;
 use Illuminate\Http\Request;
 
 class BukaDepositoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.buka-deposito');
+        $title = 'Buka Deposito';
+        return view('user.buka-deposito', compact('title'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    /**  Admin Side -------------------------------------------------------------------------------------------------- */
+    public function list()
     {
-        //
+        $title = 'Buka Deposito';
+        $data_deposito = BukaDeposito::latest()->get();
+        return view('admin.deposito.list', compact('data_deposito','title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function detail($id)
     {
-        //
+        $title = 'Buka Deposito';
+        $data_deposito = BukaDeposito::findOrFail($id);
+        return view('admin.deposito.detail', compact('data_deposito', 'title'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $data_deposito = BukaDeposito::findOrfail($id);
+        $data_deposito->delete();
+        return redirect()->back()->with(['error' => 'Data Berhasil Dihapus!']);
     }
+
 }

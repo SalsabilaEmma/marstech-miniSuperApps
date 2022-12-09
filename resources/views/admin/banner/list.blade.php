@@ -40,6 +40,7 @@
                                             <tr class="text-center">
                                                 <th style="width: 50px">No</th>
                                                 <th>Judul</th>
+                                                <th>Keterangan</th>
                                                 <th>Preview</th>
                                                 <th style="width: 250px">Action</th>
                                             </tr>
@@ -49,6 +50,7 @@
                                                 <tr>
                                                     <td class="text-center">{{ $loop->iteration }}</td>
                                                     <td>{{ $banner->nama }}</td>
+                                                    <td>{{ $banner->ket }}</td>
                                                     <td>
                                                         <div class="zoom">
                                                             <img id="file" class="profile-user-img img-responsive"
@@ -113,6 +115,16 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label>Keterangan</label>
+                            <div class="input-group">
+                                <input type="text" required class="form-control @error('ket') is-invalid @enderror"
+                                    placeholder="Judul Banner" name="ket">
+                                @error('ket')
+                                    <small>{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label>File</label>
                             <div class="input-group">
                                 <input type="file" required name="file" accept="image/*" id="file-input" onchange="imageExtensionValidate(this)"
@@ -149,6 +161,14 @@
                             <input type="hidden" name="id" id="id">
                             <input type="text" required name="judul" id="judul" value="" class="form-control"
                                 name="judul" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <div class="input-group">
+                            <input type="hidden" name="id" id="id">
+                            <input type="text" required name="ket" id="ket" value="" class="form-control"
+                                name="ket" readonly>
                         </div>
                     </div>
                     <div class="form-group">

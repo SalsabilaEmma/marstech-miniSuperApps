@@ -11,7 +11,9 @@ class LaporanController extends Controller
     /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.laporan');
+        $title = 'Laporan';
+        $data_laporan = Laporan::latest()->get();
+        return view('user.laporan', compact('data_laporan', 'title'));
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */

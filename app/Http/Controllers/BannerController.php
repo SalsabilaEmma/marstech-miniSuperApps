@@ -29,6 +29,7 @@ class BannerController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'ket' => 'required',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         // if (!File::isDirectory('image/banner/' . $request->id)) {
@@ -48,6 +49,7 @@ class BannerController extends Controller
         $gallery = new Banner;
         $gallery->id = $request->id;
         $gallery->nama = $request->nama;
+        $gallery->ket = $request->ket;
         $gallery->file = $namafile;
         $gallery->save();
         // dd($gallery);
@@ -67,6 +69,7 @@ class BannerController extends Controller
         $data_banner = Banner::findOrfail($id);
         $request->validate([
             'nama' => 'required',
+            'ket' => 'required',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         if (File::exists(public_path('/image/banner/' . $data_banner->file))) {  // cek didalem id itu ada file/gambare nggak
@@ -85,6 +88,7 @@ class BannerController extends Controller
         $image->move('image/banner-original/', $namafile); // ukuran file asli
         // perubahan nama & file
         $data_banner->nama = $request->nama;
+        $data_banner->ket = $request->ket;
         $data_banner->file = $namafile;
         $data_banner->save();
         return redirect()->route('banner.list')->with(['success' => 'Data Berhasil Diubah!']);

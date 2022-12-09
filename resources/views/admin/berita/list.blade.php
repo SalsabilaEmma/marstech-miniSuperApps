@@ -64,7 +64,8 @@
                                                             <button type="button" class="show btn btn-sm btn-outline-info"
                                                                 data-id="{{ $berita->id }}"
                                                                 data-judul="{{ $berita->judul }}"
-                                                                data-isi="{{ $berita->isi }}">
+                                                                data-isi="{{ $berita->isi }}"
+                                                                data-file="{{ $berita->file }}">
                                                                 <i data-feather="info"></i> Detail
                                                             </button>
                                                             <a href="{{ route('berita.edit', $berita->id) }}"
@@ -114,16 +115,16 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <label>Gambar</label>
                             <div class="input-group">
-                                <input type="file" required name="file"
+                                <input type="file" required name="file" accept="image/*" id="file-input" onchange="imageExtensionValidate(this)"
                                     class="form-control @error('file') is-invalid @enderror" placeholder="">
                                 @error('file')
                                     <small>{{ $message }}</small>
                                 @enderror
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="form-group">
                             <label>Deskripsi</label>
                             <div class="input-group">
@@ -171,6 +172,12 @@
                                 name="isi" readonly>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="gallery gallery-md">
+                            <input type="hidden" name="id" id="id">
+                            <div name="file" class="zoom3" id="file" data-title="Image"></div>
+                        </div>
+                    </div>
                     <div class="text-right">
                         <button type="button" class="btn btn-outline-dark m-t-15 waves-effect"
                             data-dismiss="modal">Cancel</button>
@@ -188,9 +195,13 @@
             $("#lihatdata").find("#id").attr("value", $(this).data('id'));
             $("#lihatdata").find("#judul").attr("value", $(this).data('judul'));
             $("#lihatdata").find("#isi").attr("value", $(this).data('isi'));
-            // $("#lihatdata").find("#isi").summernote('code',($(this).data('isi')));
+            $("#lihatdata").find("#file").attr("value", $(this).data('file'));
             $('#isi').summernote('code',($(this).data('isi')));
-            // $("#lihatdata").find("#created_at").attr("value", $(this).data('created_at'));
+            var fileFoto = "{{url('/')}}/image/berita/" + $(this).data('file');
+            console.log(fileFoto);
+            $('#file').html(`
+                <img id="file" class="profile-user-img img-responsive" style="height: 150px; width: auto; display: block; margin: auto;" src="${fileFoto}" alt="Berita">
+            `);
             console.log();
         });
     });

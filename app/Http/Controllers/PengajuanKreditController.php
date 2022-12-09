@@ -2,80 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PengajuanKredit;
 use Illuminate\Http\Request;
 
 class PengajuanKreditController extends Controller
 {
+    /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.pengajuan-kredit');
+        $title = 'Pengajuan Kredit';
+        return view('user.pengajuan-kredit', compact('title'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    /**  Admin Side -------------------------------------------------------------------------------------------------- */
+    public function list()
     {
-        //
+        $title = 'Pengajuan Kredit';
+        $data_kredit = PengajuanKredit::latest()->get();
+        return view('admin.kredit.list', compact('data_kredit','title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function detail($id)
     {
-        //
+        $title = 'Pengajuan Kredit';
+        $data_kredit = PengajuanKredit::findOrFail($id);
+        return view('admin.kredit.detail', compact('data_kredit', 'title'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $data_kredit = PengajuanKredit::findOrfail($id);
+        $data_kredit->delete();
+        return redirect()->back()->with(['error' => 'Data Berhasil Dihapus!']);
     }
-
-
 }

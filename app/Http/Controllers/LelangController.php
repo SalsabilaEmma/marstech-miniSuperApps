@@ -13,11 +13,16 @@ class LelangController extends Controller
     /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.lelang');
+        $title = 'Daftar Lelang';
+        $data_lelang = Lelang::latest()->get();
+        return view('user.lelang', compact('data_lelang', 'title'));
     }
-    public function indexLelangDetail()
+    public function indexLelangDetail($id)
     {
-        return view('user.lelang-detail');
+        $title = 'Lelang';
+        $list_lelang = Lelang::latest()->paginate(5);
+        $data_lelang = Lelang::findOrFail($id);
+        return view('user.lelang-detail', compact('title','data_lelang','list_lelang'));
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */

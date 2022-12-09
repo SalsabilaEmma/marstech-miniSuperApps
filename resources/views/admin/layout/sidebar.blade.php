@@ -17,19 +17,19 @@
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="list"></i><span>Calon
                         Nasabah</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="widget-chart.html">Pengajuan Buka Deposito</a></li>
-                    <li><a class="nav-link" href="widget-data.html">Pengajuan Buka Tabungan</a></li>
-                    <li><a class="nav-link" href="widget-data.html">Pengajuan Pembiayaan</a></li>
+                    <li><a class="nav-link" href="{{ route('buka.deposito.list') }}">Pengajuan Buka Deposito</a></li>
+                    <li><a class="nav-link" href="{{ route('buka.tabungan.list') }}">Pengajuan Buka Tabungan</a></li>
+                    <li><a class="nav-link" href="{{ route('buka.kredit.list') }}">Pengajuan Pembiayaan</a></li>
                 </ul>
             </li>
             {{-- <li class="dropdown">
                 <a href="#" class="nav-link"><i data-feather="inbox"></i><span>Lamaran Masuk</span></a>
             </li> --}}
             <li class="dropdown">
-                <a href="#" class="nav-link"><i data-feather="inbox"></i><span>Kontak (Pesan Masuk)</span></a>
+                <a href="{{ route('kontak.list') }}" class="nav-link"><i data-feather="inbox"></i><span>Kontak (Pesan Masuk)</span></a>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link"><i data-feather="users"></i><span>Pelanggan</span></a>
+                <a href="{{ route('subscribe.list') }}" class="nav-link"><i data-feather="users"></i><span>Pelanggan</span></a>
             </li>
 
             <li class="menu-header">Main</li>
@@ -64,6 +64,7 @@
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="grid"></i><span>Tentang
                         Kami</span></a>
                 <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('about.list') }}">About Us</a></li>
                     <li><a class="nav-link" href="{{ route('sejarah.list') }}">Sejarah</a></li>
                     <li><a class="nav-link" href="{{ route('vismis.list') }}">Visi Misi</a></li>
                     <li><a class="nav-link" href="{{ route('penghargaan.list') }}">Penghargaan</a></li>

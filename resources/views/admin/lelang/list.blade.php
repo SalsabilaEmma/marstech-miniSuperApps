@@ -316,8 +316,10 @@
                     </div>
                     <div class="form-group">
                         <div class="gallery gallery-md">
-                            <input type="hidden" name="id" id="id">
-                            <div name="foto" class="zoom3" id="foto" data-title="Image" value=""></div>
+                            <div class="zoom3">
+                                <input type="hidden" name="id" id="id">
+                                <div name="foto" id="foto" data-title="Image" value=""></div>
+                            </div>
                         </div>
                     </div>
                     <div class="text-right">

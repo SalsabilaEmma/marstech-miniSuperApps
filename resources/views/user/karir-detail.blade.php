@@ -9,7 +9,7 @@
             <h2>Detail Karir ...</h2>
             <ol>
               <li><a href="{{ route('index') }}">Home</a></li>
-              <li><a href="{{ route('Karir') }}">Karir</a></li>
+              <li><a href="{{ route('karir') }}">Karir</a></li>
               <li>Detail Karir</li>
             </ol>
           </div>

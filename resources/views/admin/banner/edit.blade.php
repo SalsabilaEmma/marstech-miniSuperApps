@@ -31,6 +31,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label>Keterangan</label>
+                                    <div class="input-group">
+                                        <input type="text" required name="ket" id="ket" value="{{ $data_banner->ket }}"
+                                            class="form-control @error('ket') is-invalid @enderror"><br>
+                                        @error('ket')
+                                            <small>{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label>Gambar Banner</label>
                                     <div class="input-group">
                                         <input type="file" required name="file" id="file" autocomplete="off" accept="image/*" id="file-input" onchange="imageExtensionValidate(this)"

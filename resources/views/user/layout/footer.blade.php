@@ -3,6 +3,18 @@
 
         <div class="footer-content">
             <div class="container">
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-dismissible show fade">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @endif
+                @if ($message = Session::get('error'))
+                    <div class="alert alert-danger alert-dismissible show fade">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @endif
                 <div class="row">
 
                     <div class="col-lg-3 col-md-6">
@@ -63,29 +75,13 @@
                                         Masyarakat Cepat dan Terpercaya"<br></span></font>
                             </p>
                         </div>
-                        <form action="" method="post">
-                            <input type="email" name="email"><input type="submit" value="Subscribe">
+                        <form action="{{ route('subscribe.store') }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="email" name="email">
+                            <input type="submit" value="Subscribe">
                         </form>
                         <p>Dapatkan info terkini dari BPR. Punya Ciki di inbox email Anda.</p>
                         <br>
-                        {{-- <div style="color: white; font-family:sans-serif">
-                            <i class="fa fa-home"></i>
-                            <br>
-                            Jalanin aja dulu, Kotak kardus, jawa timur
-                        </div>
-
-                        <br>
-
-                        <div style="color: white; font-family:sans-serif">
-                            <i class="fa fa-phone"></i> (0351) 654321 <br>
-                            <i class="fa fa-fax"></i> (0351) 123456
-                        </div>
-
-                        <br>
-
-                        <div style="color: white; font-family:sans-serif">
-                            <i class="fa fa-envelope"></i> ciki@gmail.com <br>
-                        </div> --}}
                     </div>
 
                 </div>

@@ -4,6 +4,36 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+
+.zoom {
+    padding: 10px;
+    /* background-color: white; */
+    transition: transform .2s;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+}
+
+.zoom:hover {
+    -ms-transform: scale(3.5); /* IE 9 */
+    -webkit-transform: scale(3.5); /* Safari 3-8 */
+    transform: scale(3.5);
+}
+.zoom3 {
+    padding: 5px;
+    /* background-color: white; */
+    transition: transform .2s;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+}
+
+.zoom3:hover {
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    transform: scale(1.5);
+}
+
 .videoWrapper {
     position: relative;
     width: 100%;

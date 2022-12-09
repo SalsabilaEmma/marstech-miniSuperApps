@@ -2,83 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BukaTabungan;
 use Illuminate\Http\Request;
 
 class BukaTabunganController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.buka-tabungan');
+        $title = 'Buka Tabungan';
+        return view('user.buka-tabungan', compact('title'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    /**  Admin Side -------------------------------------------------------------------------------------------------- */
+    public function list()
     {
-        //
+        $title = 'Buka Tabungan';
+        $data_tabungan = BukaTabungan::latest()->get();
+        return view('admin.tabungan.list', compact('data_tabungan','title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function detail($id)
     {
-        //
+        $title = 'Buka Tabungan';
+        $data_tabungan = BukaTabungan::findOrFail($id);
+        return view('admin.tabungan.detail', compact('data_tabungan', 'title'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $data_tabungan = BukaTabungan::findOrfail($id);
+        $data_tabungan->delete();
+        return redirect()->back()->with(['error' => 'Data Berhasil Dihapus!']);
     }
 }

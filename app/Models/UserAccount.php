@@ -9,5 +9,5 @@ class UserAccount extends Model
 {
     use HasFactory;
     protected $table = 'users';
-    protected $fillable = ['role', 'name','email','email_verified_at','password','remember_token'];
+    protected $fillable = ['role','google_id', 'name','email','email_verified_at','password','remember_token'];
 }

@@ -5,10 +5,10 @@
         <div class="container">
 
             <div class="d-flex justify-content-between align-items-center">
-                <h2>Pengajuan Kredit</h2>
+                <h2>Pengajuan {{ $title }}</h2>
                 <ol>
                     <li><a href="{{ route('index') }}">Home</a></li>
-                    <li>Pengajuan Kredit</li>
+                    <li>Pengajuan {{ $title }}</li>
                 </ol>
             </div>
 
@@ -19,12 +19,12 @@
     <section class="inner-page" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
-                <h2>Pengajuan Kredit</h2>
+                <h2>Pengajuan {{ $title }}</h2>
                 <p>Example inner page template</p>
             </div>
             <div id="accordion">
                 <div class="card-header">
-                    <h4 style="color:#3d6098;"><strong>3 Langkah mudah untuk pengajuan Tabungan, Kredit, Deposito</strong>
+                    <h4 style="color:#3d6098;"><strong>3 Langkah mudah untuk pengajuan Tabungan, {{ $title }}, Deposito</strong>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -103,7 +103,7 @@
                             <?php } ?> --}}
                         </div>
                         <div class="col-sm text-center">
-                            <h6 style="color:#3d6098;" class="text-center"><strong>Produk Kredit</strong></h6>
+                            <h6 style="color:#3d6098;" class="text-center"><strong>Produk {{ $title }}</strong></h6>
                             {{-- <?php foreach ($pembiayaan as $kk => $vk) { ?>
                             <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('pembiayaan/show/') . $vk->id_pembiayaan; ?>"><?php echo $vk->judul; ?></a>
                             <?php } ?> --}}
@@ -219,8 +219,8 @@
                                 id="foto_jaminan">
                         </div>
                         <div class="form-group">
-                            <p>Dengan klik Pengajuan Kredit maka Petugas kami dapat segera membantu Anda untuk melakukan
-                                Pengajuan Kredit di BPR. Punya Ciki</p>
+                            <p>Dengan klik Pengajuan {{ $title }} maka Petugas kami dapat segera membantu Anda untuk melakukan
+                                Pengajuan {{ $title }} di BPR. Punya Ciki</p>
                         </div>
                         <div class="form-group text-right">
                             <div class="g-recaptcha text-center" data-sitekey=""></div><br>

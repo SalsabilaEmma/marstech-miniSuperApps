@@ -5,10 +5,10 @@
         <div class="container">
 
             <div class="d-flex justify-content-between align-items-center">
-                <h2>Buka Tabungan</h2>
+                <h2>Buka {{ $title }}</h2>
                 <ol>
                     <li><a href="{{ route('index') }}">Home</a></li>
-                    <li>Buka Tabungan</li>
+                    <li>Buka {{ $title }}</li>
                 </ol>
             </div>
 
@@ -19,12 +19,12 @@
     <section class="inner-page" data-aos="fade-up">
         <div class="container">
             <div class="section-header">
-                <h2>Buka Tabungan</h2>
+                <h2>Buka {{ $title }}</h2>
                 <p>Example inner page template</p>
             </div>
             <div id="accordion">
                 <div class="card-header">
-                    <h4 style="color:#3d6098;"><strong>3 Langkah mudah untuk pengajuan Tabungan, Kredit, Deposito</strong>
+                    <h4 style="color:#3d6098;"><strong>3 Langkah mudah untuk pengajuan {{ $title }}, Kredit, Deposito</strong>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -97,7 +97,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm text-center">
-                            <h6 style="color:#3d6098;" class="text-center"><strong>Produk Tabungan</strong></h6>
+                            <h6 style="color:#3d6098;" class="text-center"><strong>Produk {{ $title }}</strong></h6>
                             {{-- <?php foreach ($tabungan as $kt => $vt) { ?>
                             <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('tabungan/show/') . $vt->id_tabungan; ?>"><?php echo $vt->judul; ?></a>
                             <?php } ?> --}}
@@ -189,8 +189,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <p>Dengan klik Buka Tabungan maka Petugas kami dapat segera membantu Anda untuk melakukan
-                                Pembukaan Tabungan di BPR. Punya Ciki</p>
+                            <p>Dengan klik Buka {{ $title }} maka Petugas kami dapat segera membantu Anda untuk melakukan
+                                Pembukaan {{ $title }} di BPR. Punya Ciki</p>
                         </div>
                         <div class="form-group text-right">
                             <div class="g-recaptcha text-center" data-sitekey=""></div><br>
