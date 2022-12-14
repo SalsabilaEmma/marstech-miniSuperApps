@@ -60,7 +60,7 @@
                                                             </button>
                                                             <a href="{{ route('produk.kredit.edit', $kredit->id) }}"
                                                                 class="btn btn-sm btn-outline-success"><i
-                                                                data-feather="edit"></i> Edit
+                                                                    data-feather="edit"></i> Edit
                                                             </a>
                                                             @csrf
                                                             @method('DELETE')
@@ -93,7 +93,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('produk.kredit.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('produk.kredit.store') }}" method="POST" id="recaptcha-form"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Judul {{ $title }}</label>
@@ -112,7 +113,8 @@
                                 @error('isi')
                                     <small>{{ $message }}</small>
                                 @enderror --}}
-                                <input type="text" required name="isi" class="form-control @error('isi') is-invalid @enderror"
+                                <input type="text" required name="isi"
+                                    class="form-control @error('isi') is-invalid @enderror"
                                     placeholder="Deskripsi Produk Kredit">
                                 @error('isi')
                                     <small>{{ $message }}</small>
@@ -120,7 +122,9 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Submit</button>
                             <button type="button" class="btn btn-outline-dark m-t-15 waves-effect"
                                 data-dismiss="modal">Cancel</button>
                         </div>
@@ -144,16 +148,16 @@
                         <label>Judul {{ $title }}</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="judul" id="judul" value="" class="form-control"
-                                name="judul" readonly>
+                            <input type="text" required name="judul" id="judul" value=""
+                                class="form-control" name="judul" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Deskripsi</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="isi" id="isi" value="" class="form-control"
-                                name="isi" readonly>
+                            <input type="text" required name="isi" id="isi" value=""
+                                class="form-control" name="isi" readonly>
                         </div>
                     </div>
                     <div class="text-right">

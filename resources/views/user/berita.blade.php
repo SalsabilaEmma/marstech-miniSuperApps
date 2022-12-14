@@ -61,48 +61,15 @@
 
                     </div><!-- End blog posts list -->
 
-                    <div class="blog-pagination">
-                        <ul class="justify-content-center">
-                            <li><a href="#">1</a></li>
-                            <li class="active"><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                        </ul>
-                    </div><!-- End blog pagination -->
 
                 </div>
-
-                {{-- <div class="col-lg-4">
-
-                    <div class="sidebar">
-
-                        <div class="sidebar-item recent-posts">
-                            <h3 class="sidebar-title">{{ $title }} Lainnya</h3>
-
-                            <div class="mt-3">
-                                @foreach ($data_berita as $berita)
-                                    <div class="post-item mt-3">
-                                        <img src="{{ url('image/berita/' . $berita->file) }}" alt=""
-                                            class="flex-shrink-0">
-                                        <div>
-                                            <h4><a href="{{ route('berita.detail', $berita->id) }}">{{ $berita->judul }}</a></h4>
-                                            <time datetime="{{ date('d F Y', strtotime($berita->created_at)) }}">{{ date('d F Y', strtotime($berita->created_at)) }}</time>
-                                        </div>
-                                    </div><!-- End recent post item-->
-                                @endforeach
-
-                                <br><a href="{{ route('berita') }}" class="read-more align-self-start">Lihat Selengkapnya
-                                    <i class="bi bi-arrow-right"></i></a>
-
-                            </div>
-
-                        </div><!-- End sidebar recent posts-->
-
-                    </div><!-- End Blog Sidebar -->
-
-                </div> --}}
-
             </div>
 
+            <div class="blog-pagination">
+                {{-- <div class="justify-content-center"> --}}
+                    {{ $data_berita->links('pagination::bootstrap-5') }}
+                {{-- </div> --}}
+            </div>
         </div>
     </section><!-- End Blog Section -->
 @endsection

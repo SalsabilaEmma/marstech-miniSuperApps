@@ -12,12 +12,17 @@ class KarirController extends Controller
     /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.karir');
+        $title = 'Karir';
+        $data_karir = Karir::latest()->get();
+        return view('user.karir', compact('data_karir', 'title'));
     }
 
-    public function indexKarirDetail()
+    public function indexKarirDetail($id)
     {
-        return view('user.karir-detail');
+        $title = 'Karir';
+        $list_karir = Karir::latest()->paginate(5);
+        $data_karir = Karir::findOrFail($id);
+        return view('user.karir-detail', compact('data_karir', 'title','list_karir'));
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */
@@ -33,6 +38,7 @@ class KarirController extends Controller
         // dd($request->all());
         $request->validate([
             'judul' => 'required',
+            'tglmax' => 'required',
             'isi' => 'required',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
@@ -53,6 +59,7 @@ class KarirController extends Controller
         $data_karir = new Karir;
         $data_karir->id = $request->id;
         $data_karir->judul = $request->judul;
+        $data_karir->tglmax = $request->tglmax;
         $data_karir->isi = $request->isi;
         $data_karir->file = $judulfile;
         // dd($data_karir);
@@ -74,6 +81,7 @@ class KarirController extends Controller
         $request->validate([
             'judul' => 'required',
             'isi' => 'required',
+            'tglmax' => 'required',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         if (File::exists(public_path('/image/pengumuman-karir/' . $data_karir->file))) {  // cek didalem id itu ada file/gambare nggak
@@ -92,6 +100,7 @@ class KarirController extends Controller
         $image->move('image/pengumuman-karir-original/', $judulfile); // ukuran file asli
         // perubahan judul & file
         $data_karir->judul = $request->judul;
+        $data_karir->tglmax = $request->tglmax;
         $data_karir->isi = $request->isi;
         $data_karir->file = $judulfile;
         // dd($data_karir);

@@ -99,7 +99,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('laporan.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('laporan.store') }}" method="POST" id="recaptcha-form"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Judul {{ $title }}</label>
@@ -115,7 +116,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="bulan">Bulan</label>
-                                    <select class="form-control @error('bulan') is-invalid @enderror" required name="bulan" id="bulan">
+                                    <select class="form-control @error('bulan') is-invalid @enderror" required
+                                        name="bulan" id="bulan">
                                         <?php
                                         $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
                                         ?>
@@ -132,7 +134,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="tahun">Tahun</label>
-                                    <select class="form-control @error('tahun') is-invalid @enderror" required id="tahun" name="tahun">
+                                    <select class="form-control @error('tahun') is-invalid @enderror" required
+                                        id="tahun" name="tahun">
                                         <option selected hidden value="">-Pilih Tahun-</option>
                                         <?php
                                         for ($i = 1990; $i <= date('Y'); $i++) {
@@ -162,7 +165,9 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Submit</button>
                             <button type="button" class="btn btn-outline-dark m-t-15 waves-effect"
                                 data-dismiss="modal">Cancel</button>
                         </div>

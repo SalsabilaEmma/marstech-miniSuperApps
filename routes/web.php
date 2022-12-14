@@ -53,6 +53,7 @@ use App\Models\Pencapaian;
 Route::GET('/', [Controller::class, 'index'])->name('index');
 
 Route::GET('/kontak', [ContactController::class, 'index'])->name('contact');
+Route::POST('/kontak/store', [ContactController::class, 'store'])->name('kontak.store');
 
 Route::GET('/visi-misi', [VismisController::class, 'index'])->name('vismis');
 
@@ -75,10 +76,12 @@ Route::GET('/lelang', [LelangController::class, 'index'])->name('lelang');
 Route::GET('/lelang-detail/{id?}', [LelangController::class, 'indexLelangDetail'])->name('lelang.detail');
 
 Route::GET('/edukasi', [EdukasiController::class, 'index'])->name('edukasi');
+Route::GET('/edukasi/show/{id?}', [EdukasiController::class, 'show'])->name('edukasi.show');
 
 Route::GET('/galeri', [GaleriController::class, 'index'])->name('galeri');
 
 Route::GET('/download-area', [DownloadController::class, 'index'])->name('download');
+Route::GET('/download-area/download/{id?}', [DownloadController::class, 'downloadFile'])->name('download.downloadFile');
 
 Route::GET('/laporan', [LaporanController::class, 'index'])->name('laporan');
 

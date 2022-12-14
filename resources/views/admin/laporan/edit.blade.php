@@ -16,14 +16,15 @@
                         <h4>Edit {{ $title }}</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('laporan.update', $data_laporan->id) }}" method="POST"
+                        <form action="{{ route('laporan.update', $data_laporan->id) }}" method="POST" id="recaptcha-form"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label>Judul</label>
                                     <div class="input-group">
-                                        <input type="text" required name="judul" id="judul" value="{{ $data_laporan->judul }}"
+                                        <input type="text" required name="judul" id="judul"
+                                            value="{{ $data_laporan->judul }}"
                                             class="form-control @error('judul') is-invalid @enderror"><br>
                                         @error('judul')
                                             <small>{{ $message }}</small>
@@ -34,7 +35,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="bulan">Bulan</label>
-                                            <select class="form-control @error('bulan') is-invalid @enderror" required name="bulan" id="bulan">
+                                            <select class="form-control @error('bulan') is-invalid @enderror" required
+                                                name="bulan" id="bulan">
                                                 <?php
                                                 $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
                                                 ?>
@@ -51,7 +53,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="tahun">Tahun</label>
-                                            <select class="form-control @error('tahun') is-invalid @enderror" required id="tahun" name="tahun">
+                                            <select class="form-control @error('tahun') is-invalid @enderror" required
+                                                id="tahun" name="tahun">
                                                 <option selected hidden value="">{{ $data_laporan->tahun }}</option>
                                                 <?php
                                                 for ($i = 1990; $i <= date('Y'); $i++) {
@@ -83,11 +86,14 @@
                                 <div class="form-group">
                                     <label>Preview File Lama</label>
                                     <div class="input-group">
-                                        <iframe style="width: 100%; height: 300px" src="{{url('file/laporan/' . $data_laporan->file)}}" placeholder=""></iframe>
+                                        <iframe style="width: 100%; height: 300px"
+                                            src="{{ url('file/laporan/' . $data_laporan->file) }}" placeholder=""></iframe>
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Ubah</button>
+                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                        data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                        data-action='submit'>Ubah</button>
                                     <a href="{{ route('laporan.list') }}">
                                         <button type="button"
                                             class="btn btn-outline-dark m-t-15 waves-effect">Kembali</button>

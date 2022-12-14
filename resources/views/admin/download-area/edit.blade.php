@@ -16,7 +16,7 @@
                         <h4>Edit {{ $title }}</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('download.update', $data_download->id) }}" method="POST"
+                        <form action="{{ route('download.update', $data_download->id) }}" method="POST" id="recaptcha-form"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="modal-body">
@@ -47,7 +47,9 @@
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Ubah</button>
+                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                    data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                    data-action='submit'>Ubah</button>
                                     <a href="{{ route('download.list') }}">
                                         <button type="button"
                                             class="btn btn-outline-dark m-t-15 waves-effect">Kembali</button>

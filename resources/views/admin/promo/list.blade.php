@@ -53,12 +53,14 @@
                                                         <div class="zoom">
                                                             <img id="file" class="profile-user-img img-responsive"
                                                                 style="height: 150px; width: auto; display: block; margin: auto;"
-                                                                src="{{ url('image/promo/' . $promo->file) }}" alt="Promo">
+                                                                src="{{ url('image/promo/' . $promo->file) }}"
+                                                                alt="Promo">
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
                                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="{{ route('promo.destroy', $promo->id) }}" method="POST">
+                                                            action="{{ route('promo.destroy', $promo->id) }}"
+                                                            method="POST">
                                                             {{-- <button type="button" class="show btn btn-sm btn-outline-info"
                                                                 data-id="{{ $promo->id }}"
                                                                 data-nama="{{ $promo->nama }}"
@@ -67,7 +69,7 @@
                                                             </button> --}}
                                                             <a href="{{ route('promo.edit', $promo->id) }}"
                                                                 class="btn btn-sm btn-outline-success"><i
-                                                                data-feather="edit"></i> Edit
+                                                                    data-feather="edit"></i> Edit
                                                             </a>
                                                             @csrf
                                                             @method('DELETE')
@@ -99,7 +101,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('promo.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('promo.store') }}" method="POST" id="recaptcha-form"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Judul {{ $title }}</label>
@@ -114,7 +117,8 @@
                         <div class="form-group">
                             <label>File</label>
                             <div class="input-group">
-                                <input type="file" required name="file" accept="image/*" id="file-input" onchange="imageExtensionValidate(this)"
+                                <input type="file" required name="file" accept="image/*" id="file-input"
+                                    onchange="imageExtensionValidate(this)"
                                     class="form-control @error('file') is-invalid @enderror" placeholder="Deskripsi Promo">
                                 @error('file')
                                     <small>{{ $message }}</small>
@@ -122,7 +126,9 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Submit</button>
                             <button type="button" class="btn btn-outline-dark m-t-15 waves-effect"
                                 data-dismiss="modal">Cancel</button>
                         </div>
@@ -146,16 +152,16 @@
                         <label>Judul {{ $title }}</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="nama" id="nama" value="" class="form-control"
-                                name="nama" readonly>
+                            <input type="text" required name="nama" id="nama" value=""
+                                class="form-control" name="nama" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Deskripsi</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="isi" id="isi" value="" class="form-control"
-                                name="isi" readonly>
+                            <input type="text" required name="isi" id="isi" value=""
+                                class="form-control" name="isi" readonly>
                         </div>
                     </div>
                     <div class="text-right">

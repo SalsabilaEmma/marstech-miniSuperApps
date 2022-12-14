@@ -1,35 +1,33 @@
 @extends('user.layout.app')
 @section('content')
-
     <!-- ======= Breadcrumbs ======= -->
     <div class="breadcrumbs">
         <div class="container">
 
-          <div class="d-flex justify-content-between align-items-center">
-            <h2>Sejarah</h2>
-            <ol>
-              <li><a href="{{ route('index') }}">Home</a></li>
-              <li>Sejarah</li>
-            </ol>
-          </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>{{ $title }}</h2>
+                <ol>
+                    <li><a href="{{ route('index') }}">Home</a></li>
+                    <li>{{ $title }}</li>
+                </ol>
+            </div>
 
         </div>
-      </div><!-- End Breadcrumbs -->
+    </div><!-- End Breadcrumbs -->
 
-      <!-- ======= Blog Section ======= -->
-      <section class="inner-page">
+    <!-- ======= Blog Section ======= -->
+    <section class="inner-page">
         <div class="container" data-aos="fade-up">
 
-          <div class="section-header">
-            <h2>Sejarah</h2>
-            <p>Example inner page template</p>
-          </div>
+            <div class="section-header">
+                <h2>{{ $title }}</h2>
+                {{-- <p>Example inner page template</p> --}}
+            </div>
 
-          <p>
-            You can duplicate this page and create any number of pages you like!
-          </p>
+            @foreach ($data_sejarah as $sejarah)
+                <p>{!! $sejarah->isi !!}</p>
+            @endforeach
 
         </div>
-      </section><!-- End Inner Page -->
-
+    </section><!-- End Inner Page -->
 @endsection

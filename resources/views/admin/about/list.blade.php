@@ -47,7 +47,7 @@
                                             @foreach ($data_about as $about)
                                                 <tr class="text-center">
                                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                                    <td>{{ date('d F Y', strtotime($about->tanggal)) }}</td>
+                                                    <td>{{ date('d F Y', strtotime($about->created_at)) }}</td>
                                                     <td>{{ $about->judul }}</td>
                                                     <td class="text-center">
                                                         {{-- <form onsubmit="return confirm('Apakah Anda Yakin ?');"

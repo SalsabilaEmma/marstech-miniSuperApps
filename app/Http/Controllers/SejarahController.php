@@ -11,7 +11,9 @@ class SejarahController extends Controller
     /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.sejarah');
+        $title = 'Sejarah';
+        $data_sejarah = Sejarah::latest()->get();
+        return view('user.sejarah', compact('data_sejarah','title'));
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */

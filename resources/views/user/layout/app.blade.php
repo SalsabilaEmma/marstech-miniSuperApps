@@ -16,7 +16,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
@@ -38,13 +39,15 @@
     <!-- Template Main CSS File -->
     <link href="{{ url('HeroBiz') }}/assets/css/main.css" rel="stylesheet">
     <!-- tambahan -->
-    <link rel='shortcut icon' type='image/x-icon' href='{{url('') }}/image/1ciki-transparan.png' />
+    <link rel='shortcut icon' type='image/x-icon' href='{{ url('') }}/image/1ciki-transparan.png' />
     <link rel="stylesheet" type="text/css" href="{{ url('HeroBiz') }}/assets/js/datatables.min.css" />
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
+
+    <link href="{{ url('HeroBiz') }}/assets/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     @section('css')
     @show
     @yield('css')
@@ -92,6 +95,18 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
 
+    <script src="{{ url('HeroBiz') }}/assets/owlcarousel/owl.carousel.min.js"></script>
+
+
+    <!-- GOOGLE RECAPTCHA -->
+
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+    <script>
+        function onSubmit(token) {
+            document.getElementById("recaptcha-form").submit();
+        }
+    </script>
 @show
 @yield('js')
 </body>

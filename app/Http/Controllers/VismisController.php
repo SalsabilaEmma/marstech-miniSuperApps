@@ -10,7 +10,9 @@ class VismisController extends Controller
     /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.vismis');
+        $title = 'Visi Misi';
+        $data_vismis = Vismis::latest()->get();
+        return view('user.vismis', compact('data_vismis','title'));
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */

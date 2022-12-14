@@ -16,7 +16,7 @@
                         <h4>Edit {{ $title }}</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('galeri.update', $data_galeri->id) }}" method="POST"
+                        <form action="{{ route('galeri.update', $data_galeri->id) }}" method="POST" id="recaptcha-form"
                             enctype="multipart/form-data">
                             @csrf
                             @method('put')
@@ -31,47 +31,56 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label>File Gambar</label>
-                                            <div class="row">
-                                                @foreach ($data_galeri->gambar as $gambar)
-                                                    <div class="col-md-4">
-                                                        <div class="input-group" id="gambar-{{ $gambar->id }}">
-                                                            <div class="zoom">
-                                                                <img id="file" class="profile-user-img img-responsive"
-                                                                    style="height: 80px; width: auto; display: block; margin: auto;"
-                                                                    src="{{ url('image/galeri/' . $gambar->gambar) }}"
-                                                                    alt="Gambar Lelang">
-                                                            </div>
-                                                            {{-- <input type="file" required name="foto[]" autocomplete="off"
-                                                                    autocomplete="off" accept="image/*" id="file-input"
-                                                                    onchange="imageExtensionValidate(this)"
-                                                                    class="m-input form-control @error('foto') is-invalid @enderror"
-                                                                    placeholder="">
-                                                                @error('foto')
-                                                                    <small>{{ $message }}</small>
-                                                                @enderror --}}
-                                                            <div class="input-group-append">
-                                                                <button type="button"
-                                                                    class="btn btn-outline-danger btn-sm fa fa-trash hapus"
-                                                                    data-url="{{ route('galeri.delete', $gambar->id) }}"></button>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                @endforeach
+                                            <label>File Gambar Baru</label>
+                                            <div class="input-group">
+                                                <input type="file" required name="file" autocomplete="off"
+                                                    autocomplete="off" accept="image/*" id="file-input"
+                                                    onchange="imageExtensionValidate(this)"
+                                                    class="m-input form-control @error('foto') is-invalid @enderror"
+                                                    placeholder="">
+                                                @error('foto')
+                                                    <small>{{ $message }}</small>
+                                                @enderror
                                             </div>
                                         </div>
-                                        <hr><label>Tambah Data Gambar</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Preview Gambar</label>
+                                            <div class="row">
+                                                {{-- @foreach ($data_galeri->gambar as $gambar) --}}
+                                                <div class="col-md-4">
+                                                    <div class="input-group" id="gambar-{{ $data_galeri->id }}">
+                                                        <div class="zoom">
+                                                            <img id="file" class="profile-user-img img-responsive"
+                                                                style="height: 80px; width: auto; display: block; margin: auto;"
+                                                                src="{{ url('image/galeri/' . $data_galeri->file) }}"
+                                                                alt="Gambar Lelang">
+                                                        </div>
+                                                        {{-- <div class="input-group-append">
+                                                                <button type="button"
+                                                                    class="btn btn-outline-danger btn-sm fa fa-trash hapus"
+                                                                    data-url="{{ route('galeri.delete', $data_galeri->id) }}"></button>
+                                                            </div> --}}
+
+                                                    </div>
+                                                </div>
+                                                {{-- @endforeach --}}
+                                            </div>
+                                        </div>
+                                        {{-- <hr><label>Tambah Data Gambar</label>
                                         <div id="newRow"></div>
                                         <button id="addRow" type="button" class="btn btn-success m-t-15 waves-effect">+
                                             Tambah
-                                            Baris</button>
+                                            Baris</button> --}}
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Ubah</button>
+                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                        data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                        data-action='submit'>Ubah</button>
                                     <a href="{{ route('galeri.list') }}">
                                         <button type="button"
                                             class="btn btn-outline-dark m-t-15 waves-effect">Kembali</button>
@@ -84,7 +93,7 @@
             </div>
         </section>
     </div>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {{-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         // add row
         $("#addRow").click(function() {
@@ -128,5 +137,5 @@
                 return false;
             }
         });
-    </script>
+    </script> --}}
 @endsection

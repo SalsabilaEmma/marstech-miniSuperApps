@@ -17,7 +17,7 @@
                     </div>
                     <div class="card-body">
                         <form action="{{ route('penghargaan.update', $data_penghargaan->id) }}" method="POST"
-                            enctype="multipart/form-data">
+                            id="recaptcha-form" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <div class="form-group">
@@ -71,7 +71,9 @@
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Ubah</button>
+                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                        data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                        data-action='submit'>Ubah</button>
                                     <a href="{{ route('penghargaan.list') }}">
                                         <button type="button"
                                             class="btn btn-outline-dark m-t-15 waves-effect">Kembali</button>

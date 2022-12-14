@@ -17,7 +17,7 @@
                     </div>
                     <div class="card-body">
                         <form action="{{ route('video.interaksi.update', $data_video_interaksi->id) }}" method="POST"
-                            enctype="multipart/form-data">
+                            id="recaptcha-form" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <div class="form-group">
@@ -35,7 +35,8 @@
                                     <label>Link Video Interaksi</label>
                                     <div class="input-group">
                                         <input type="text" required name="link" id="link"
-                                            class="form-control @error('link') is-invalid @enderror" value="{{ $data_video_interaksi->link }}">
+                                            class="form-control @error('link') is-invalid @enderror"
+                                            value="{{ $data_video_interaksi->link }}">
                                         @error('link')
                                             <small>{{ $message }}</small>
                                         @enderror
@@ -47,14 +48,16 @@
                                         <div class="embed-responsive embed-responsive-16by9 box-shadow wow fadeInUp"
                                             data-wow-delay="200ms">
                                             <iframe class="embed-responsive-item"
-                                                src="https://www.youtube.com/embed/{{ explode('v=', $data_video_interaksi->link)[1] }}" style="height: 200px; width: auto;"
-                                                allowfullscreen>
+                                                src="https://www.youtube.com/embed/{{ explode('v=', $data_video_interaksi->link)[1] }}"
+                                                style="height: 200px; width: auto;" allowfullscreen>
                                             </iframe>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Ubah</button>
+                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                        data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                        data-action='submit'>Ubah</button>
                                     <a href="{{ route('video.interaksi.list') }}">
                                         <button type="button"
                                             class="btn btn-outline-dark m-t-15 waves-effect">Kembali</button>

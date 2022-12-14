@@ -75,10 +75,13 @@
                                         Masyarakat Cepat dan Terpercaya"<br></span></font>
                             </p>
                         </div>
-                        <form action="{{ route('subscribe.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('subscribe.store') }}" id="recaptcha-form" method="post"
+                            enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <input type="email" name="email">
-                            <input type="submit" value="Subscribe">
+                            <input type="submit" class="g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit' value="Subscribe">
                         </form>
                         <p>Dapatkan info terkini dari BPR. Punya Ciki di inbox email Anda.</p>
                         <br>

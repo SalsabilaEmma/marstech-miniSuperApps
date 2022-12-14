@@ -56,6 +56,7 @@
                                                                 data-id="{{ $karir->id }}"
                                                                 data-judul="{{ $karir->judul }}"
                                                                 data-isi="{{ $karir->isi }}"
+                                                                data-tglmax="{{ $karir->tglmax }}"
                                                                 data-file="{{ $karir->file }}">
                                                                 <i data-feather="info"></i> Detail
                                                             </button>
@@ -94,7 +95,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('karir.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('karir.store') }}" method="POST" id="recaptcha-form"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Judul {{ $title }}</label>
@@ -102,6 +104,16 @@
                                 <input type="text" required class="form-control @error('judul') is-invalid @enderror"
                                     placeholder="Judul Karir" name="judul">
                                 @error('judul')
+                                    <small>{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Batas Waktu</label>
+                            <div class="input-group">
+                                <input type="date" required class="form-control @error('tglmax') is-invalid @enderror"
+                                    placeholder="" name="tglmax">
+                                @error('tglmax')
                                     <small>{{ $message }}</small>
                                 @enderror
                             </div>
@@ -128,7 +140,9 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Submit</button>
                             <button type="button" class="btn btn-outline-dark m-t-15 waves-effect"
                                 data-dismiss="modal">Cancel</button>
                         </div>
@@ -140,7 +154,7 @@
     <!-- Modal lihat data -->
     <div class="modal fade" id="lihatdata" tabindex="-1" role="dialog" aria-labelledby="formModal"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="formModal">Detail {{ $title }}</h5>
@@ -155,6 +169,14 @@
                             <input type="hidden" name="id" id="id">
                             <input type="text" required name="judul" id="judul" value=""
                                 class="form-control" name="judul" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Batas Waktu</label>
+                        <div class="input-group">
+                            <input type="hidden" name="id" id="id">
+                            <input type="text" required name="tglmax" id="tglmax" value=""
+                                class="form-control" name="tglmax" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -187,10 +209,11 @@
             $('#lihatdata').modal('show');
             $("#lihatdata").find("#id").attr("value", $(this).data('id'));
             $("#lihatdata").find("#judul").attr("value", $(this).data('judul'));
+            $("#lihatdata").find("#tglmax").attr("value", $(this).data('tglmax'));
             $("#lihatdata").find("#file").attr("value", $(this).data('file'));
             $('#isi').summernote('code', ($(this).data('isi')));
 
-            var fileFoto = "{{url('/')}}/image/pengumuman-karir/" + $(this).data('file');
+            var fileFoto = "{{ url('/') }}/image/pengumuman-karir/" + $(this).data('file');
             console.log(fileFoto);
             $('#file').html(`
                 <img id="file" class="profile-user-img img-responsive" style="height: 150px; width: auto; display: block; margin: auto;" src="${fileFoto}" alt="Karir">

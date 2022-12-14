@@ -50,7 +50,8 @@
                                                     <td>{{ $download->judul }}</td>
                                                     <td class="text-center">
                                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="{{ route('download.destroy', $download->id) }}" method="POST">
+                                                            action="{{ route('download.destroy', $download->id) }}"
+                                                            method="POST">
                                                             <button type="button" class="show btn btn-sm btn-outline-info"
                                                                 data-id="{{ $download->id }}"
                                                                 data-judul="{{ $download->judul }}"
@@ -59,7 +60,7 @@
                                                             </button>
                                                             <a href="{{ route('download.edit', $download->id) }}"
                                                                 class="btn btn-sm btn-outline-success"><i
-                                                                data-feather="edit"></i> Edit
+                                                                    data-feather="edit"></i> Edit
                                                             </a>
                                                             @csrf
                                                             @method('DELETE')
@@ -92,7 +93,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('download.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('download.store') }}" method="POST" id="recaptcha-form"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Judul {{ $title }}</label>
@@ -108,14 +110,17 @@
                             <label>File</label>
                             <div class="input-group">
                                 <input type="file" required name="file"
-                                    class="form-control @error('file') is-invalid @enderror" placeholder="Deskripsi {{ $title }}">
+                                    class="form-control @error('file') is-invalid @enderror"
+                                    placeholder="Deskripsi {{ $title }}">
                                 @error('file')
                                     <small>{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Submit</button>
                             <button type="button" class="btn btn-outline-dark m-t-15 waves-effect"
                                 data-dismiss="modal">Cancel</button>
                         </div>
@@ -139,8 +144,8 @@
                         <label>Judul {{ $title }}</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="judul" id="judul" value="" class="form-control"
-                                name="judul" readonly>
+                            <input type="text" required name="judul" id="judul" value=""
+                                class="form-control" name="judul" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -167,7 +172,7 @@
             $("#lihatdata").find("#id").attr("value", $(this).data('id'));
             $("#lihatdata").find("#judul").attr("value", $(this).data('judul'));
             // $("#lihatdata").find("#file").attr("value", $(this).data('file'));
-            var file = "{{url('/')}}/file/download-area/" + $(this).data('file');
+            var file = "{{ url('/') }}/file/download-area/" + $(this).data('file');
             console.log(file);
             $('#file').html(`
                 <iframe style="width: 100%; height: 100%" src="${file}" placeholder=""></iframe>

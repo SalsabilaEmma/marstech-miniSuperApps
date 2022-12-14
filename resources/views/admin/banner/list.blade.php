@@ -55,12 +55,14 @@
                                                         <div class="zoom">
                                                             <img id="file" class="profile-user-img img-responsive"
                                                                 style="height: 150px; width: auto; display: block; margin: auto;"
-                                                                src="{{ url('image/banner/' . $banner->file) }}" alt="Banner">
+                                                                src="{{ url('image/banner/' . $banner->file) }}"
+                                                                alt="Banner">
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
                                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="{{ route('banner.destroy', $banner->id) }}" method="POST">
+                                                            action="{{ route('banner.destroy', $banner->id) }}"
+                                                            method="POST">
                                                             {{-- <button type="button" class="show btn btn-sm btn-outline-info"
                                                                 data-id="{{ $banner->id }}"
                                                                 data-judul="{{ $banner->judul }}"
@@ -69,7 +71,7 @@
                                                             </button> --}}
                                                             <a href="{{ route('banner.edit', $banner->id) }}"
                                                                 class="btn btn-sm btn-outline-success"><i
-                                                                data-feather="edit"></i> Edit
+                                                                    data-feather="edit"></i> Edit
                                                             </a>
                                                             @csrf
                                                             @method('DELETE')
@@ -102,7 +104,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('banner.store') }}" method="POST" id="recaptcha-form"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Judul {{ $title }}</label>
@@ -127,7 +130,8 @@
                         <div class="form-group">
                             <label>File</label>
                             <div class="input-group">
-                                <input type="file" required name="file" accept="image/*" id="file-input" onchange="imageExtensionValidate(this)"
+                                <input type="file" required name="file" accept="image/*" id="file-input"
+                                    onchange="imageExtensionValidate(this)"
                                     class="form-control @error('file') is-invalid @enderror" placeholder="Deskripsi Banner">
                                 @error('file')
                                     <small>{{ $message }}</small>
@@ -135,7 +139,9 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Submit</button>
                             <button type="button" class="btn btn-outline-dark m-t-15 waves-effect"
                                 data-dismiss="modal">Cancel</button>
                         </div>
@@ -145,7 +151,8 @@
         </div>
     </div>
     <!-- Modal lihat data -->
-    <div class="modal fade" id="lihatdata" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal fade" id="lihatdata" tabindex="-1" role="dialog" aria-labelledby="formModal"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -159,24 +166,24 @@
                         <label>Judul {{ $title }}</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="judul" id="judul" value="" class="form-control"
-                                name="judul" readonly>
+                            <input type="text" required name="judul" id="judul" value=""
+                                class="form-control" name="judul" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Keterangan</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="ket" id="ket" value="" class="form-control"
-                                name="ket" readonly>
+                            <input type="text" required name="ket" id="ket" value=""
+                                class="form-control" name="ket" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Deskripsi</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="isi" id="isi" value="" class="form-control"
-                                name="isi" readonly>
+                            <input type="text" required name="isi" id="isi" value=""
+                                class="form-control" name="isi" readonly>
                         </div>
                     </div>
                     <div class="text-right">

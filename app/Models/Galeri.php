@@ -10,10 +10,10 @@ class Galeri extends Model
 {
     use HasFactory;
     protected $table = 'galeri';
-    protected $fillable = ['judul','foto'];
+    protected $fillable = ['judul','file'];
 
-    public function gambar(): HasMany
-    {
-        return $this->hasMany(GaleriImage::class, 'galeri_id', 'id');
-    }
+    // public function gambar(): HasMany
+    // {
+    //     return $this->hasMany(GaleriImage::class, 'galeri_id', 'id');
+    // }
 }

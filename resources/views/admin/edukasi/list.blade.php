@@ -48,7 +48,8 @@
                                             @foreach ($data_edukasi as $edukasi)
                                                 <tr>
                                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                                    <td class="text-center">{{ date('d F Y', strtotime($edukasi->tanggal)) }}</td>
+                                                    <td class="text-center">
+                                                        {{ date('d F Y', strtotime($edukasi->tanggal)) }}</td>
                                                     <td>{{ $edukasi->judul }}</td>
                                                     {{-- {!! $edukasi->isi !!} --}}
                                                     {{-- <td>
@@ -60,7 +61,8 @@
                                                     </td> --}}
                                                     <td class="text-center">
                                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="{{ route('edukasi.destroy', $edukasi->id) }}" method="POST">
+                                                            action="{{ route('edukasi.destroy', $edukasi->id) }}"
+                                                            method="POST">
                                                             <button type="button" class="show btn btn-sm btn-outline-info"
                                                                 data-id="{{ $edukasi->id }}"
                                                                 data-judul="{{ $edukasi->judul }}"
@@ -69,7 +71,7 @@
                                                             </button>
                                                             <a href="{{ route('edukasi.edit', $edukasi->id) }}"
                                                                 class="btn btn-sm btn-outline-success"><i
-                                                                data-feather="edit"></i> Edit
+                                                                    data-feather="edit"></i> Edit
                                                             </a>
                                                             @csrf
                                                             @method('DELETE')
@@ -101,7 +103,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('edukasi.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('edukasi.store') }}" method="POST" id="recaptcha-form"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Judul {{ $title }}</label>
@@ -126,14 +129,17 @@
                         <div class="form-group">
                             <label>Deskripsi</label>
                             <div class="input-group">
-                                <textarea name="isi" class="summernote form-control @error('isi') is-invalid @enderror" placeholder="Deskripsi Berita"></textarea>
+                                <textarea name="isi" class="summernote form-control @error('isi') is-invalid @enderror"
+                                    placeholder="Deskripsi Berita"></textarea>
                                 @error('isi')
                                     <small>{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Submit</button>
                             <button type="button" class="btn btn-outline-dark m-t-15 waves-effect"
                                 data-dismiss="modal">Cancel</button>
                         </div>
@@ -143,8 +149,7 @@
         </div>
     </div>
     <!-- Modal lihat data -->
-    <div class="modal fade" id="lihatdata" tabindex="-1" role="dialog" aria-labelledby="formModal"
-        aria-hidden="true">
+    <div class="modal fade" id="lihatdata" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -158,16 +163,16 @@
                         <label>Judul {{ $title }}</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="judul" id="judul" value="" class="form-control"
-                                name="judul" readonly>
+                            <input type="text" required name="judul" id="judul" value=""
+                                class="form-control" name="judul" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Deskripsi</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="isi" id="isi" value="" class=" form-control"
-                                name="isi" readonly>
+                            <input type="text" required name="isi" id="isi" value=""
+                                class=" form-control" name="isi" readonly>
                         </div>
                     </div>
                     <div class="text-right">
@@ -188,7 +193,7 @@
             $("#lihatdata").find("#judul").attr("value", $(this).data('judul'));
             $("#lihatdata").find("#isi").attr("value", $(this).data('isi'));
             // $("#lihatdata").find("#isi").summernote('code',($(this).data('isi')));
-            $('#isi').summernote('code',($(this).data('isi')));
+            $('#isi').summernote('code', ($(this).data('isi')));
             // $("#lihatdata").find("#created_at").attr("value", $(this).data('created_at'));
             console.log();
         });

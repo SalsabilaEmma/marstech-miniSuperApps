@@ -139,7 +139,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Lokasi</label>
+                                        <label>Link Lokasi</label>
                                         <div class="input-group">
                                             <input type="text" required
                                                 class="form-control @error('lokasi') is-invalid @enderror" placeholder="lokasi"
@@ -243,7 +243,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Lokasi</label>
+                            <label>Link Lokasi</label>
                             <div class="input-group">
                                 <input type="hidden" name="id" id="id">
                                 <input type="text" id="lokasi" readonly

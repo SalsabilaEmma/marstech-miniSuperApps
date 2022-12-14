@@ -48,7 +48,8 @@
                                             @foreach ($data_berita as $berita)
                                                 <tr>
                                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                                    <td class="text-center">{{ date('d F Y', strtotime($berita->created_at)) }}</td>
+                                                    <td class="text-center">
+                                                        {{ date('d F Y', strtotime($berita->created_at)) }}</td>
                                                     <td>{{ $berita->judul }}</td>
                                                     {{-- {!! $berita->isi !!} --}}
                                                     {{-- <td>
@@ -60,7 +61,8 @@
                                                     </td> --}}
                                                     <td class="text-center">
                                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="{{ route('berita.destroy', $berita->id) }}" method="POST">
+                                                            action="{{ route('berita.destroy', $berita->id) }}"
+                                                            method="POST">
                                                             <button type="button" class="show btn btn-sm btn-outline-info"
                                                                 data-id="{{ $berita->id }}"
                                                                 data-judul="{{ $berita->judul }}"
@@ -70,7 +72,7 @@
                                                             </button>
                                                             <a href="{{ route('berita.edit', $berita->id) }}"
                                                                 class="btn btn-sm btn-outline-success"><i
-                                                                data-feather="edit"></i> Edit
+                                                                    data-feather="edit"></i> Edit
                                                             </a>
                                                             @csrf
                                                             @method('DELETE')
@@ -103,7 +105,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('berita.store') }}" method="POST" id="recaptcha-form"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Judul {{ $title }}</label>
@@ -118,7 +121,8 @@
                         <div class="form-group">
                             <label>Gambar</label>
                             <div class="input-group">
-                                <input type="file" required name="file" accept="image/*" id="file-input" onchange="imageExtensionValidate(this)"
+                                <input type="file" required name="file" accept="image/*" id="file-input"
+                                    onchange="imageExtensionValidate(this)"
                                     class="form-control @error('file') is-invalid @enderror" placeholder="">
                                 @error('file')
                                     <small>{{ $message }}</small>
@@ -128,14 +132,17 @@
                         <div class="form-group">
                             <label>Deskripsi</label>
                             <div class="input-group">
-                                <textarea name="isi" class="summernote form-control @error('isi') is-invalid @enderror" placeholder="Deskripsi {{ $title }}"></textarea>
+                                <textarea required name="isi" class="summernote form-control @error('isi') is-invalid @enderror"
+                                    placeholder="Deskripsi {{ $title }}"></textarea>
                                 @error('isi')
                                     <small>{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Submit</button>
                             <button type="button" class="btn btn-outline-dark m-t-15 waves-effect"
                                 data-dismiss="modal">Cancel</button>
                         </div>
@@ -160,16 +167,16 @@
                         <label>Judul {{ $title }}</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="judul" id="judul" value="" class="form-control"
-                                name="judul" readonly>
+                            <input type="text" required name="judul" id="judul" value=""
+                                class="form-control" name="judul" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Deskripsi</label>
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" required name="isi" id="isi" value="" class=" form-control"
-                                name="isi" readonly>
+                            <input type="text" required name="isi" id="isi" value=""
+                                class=" form-control" name="isi" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -196,8 +203,8 @@
             $("#lihatdata").find("#judul").attr("value", $(this).data('judul'));
             $("#lihatdata").find("#isi").attr("value", $(this).data('isi'));
             $("#lihatdata").find("#file").attr("value", $(this).data('file'));
-            $('#isi').summernote('code',($(this).data('isi')));
-            var fileFoto = "{{url('/')}}/image/berita/" + $(this).data('file');
+            $('#isi').summernote('code', ($(this).data('isi')));
+            var fileFoto = "{{ url('/') }}/image/berita/" + $(this).data('file');
             console.log(fileFoto);
             $('#file').html(`
                 <img id="file" class="profile-user-img img-responsive" style="height: 150px; width: auto; display: block; margin: auto;" src="${fileFoto}" alt="Berita">

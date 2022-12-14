@@ -24,7 +24,8 @@
             </div>
             <div id="accordion">
                 <div class="card-header">
-                    <h4 style="color:#3d6098;"><strong>3 Langkah mudah untuk pengajuan Tabungan, {{ $title }}, Deposito</strong>
+                    <h4 style="color:#3d6098;"><strong>3 Langkah mudah untuk pengajuan Tabungan, {{ $title }},
+                            Deposito</strong>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -120,7 +121,7 @@
         </div><br>
 
         <div class="container">
-            <form id="postForm" enctype="multipart/form-data" action="" method="post">
+            <form id="recaptcha-form" enctype="multipart/form-data" action="" method="post">
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm">
                         <h4 style="color:#484a46;"><strong>Data Pribadi</strong></h4>
@@ -181,7 +182,7 @@
                         </div>
                         <div class="form-group">
                             <h4 style="color:#484a46;"><strong>Waktu Terbaik Menghubungi Anda :</strong></h4>
-                            <select  id="waktu" value="" name="waktu" class="form-control">
+                            <select id="waktu" value="" name="waktu" class="form-control">
                                 <option value="09.00 - 11.00 WIB" style="color: black;">09.00 - 11.00 WIB</option>
                                 <option value="13.00 - 15.00 WIB" style="color: black;">13.00 - 15.00 WIB</option>
                                 <option value="15.00 - 17.00 WIB" style="color: black;">15.00 - 17.00 WIB</option>
@@ -219,12 +220,15 @@
                                 id="foto_jaminan">
                         </div>
                         <div class="form-group">
-                            <p>Dengan klik Pengajuan {{ $title }} maka Petugas kami dapat segera membantu Anda untuk melakukan
+                            <p>Dengan klik Pengajuan {{ $title }} maka Petugas kami dapat segera membantu Anda untuk
+                                melakukan
                                 Pengajuan {{ $title }} di BPR. Punya Ciki</p>
                         </div>
                         <div class="form-group text-right">
-                            <div class="g-recaptcha text-center" data-sitekey=""></div><br>
-                            <button type="submit" class="btn btn-primary">Kirim</button><br>
+                            {{-- <div class="g-recaptcha text-center" data-sitekey=""></div><br> --}}
+                            <button type="submit" class="btn btn-primary g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Kirim</button><br>
                         </div>
                     </div>
                 </div>

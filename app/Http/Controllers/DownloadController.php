@@ -12,7 +12,24 @@ class DownloadController extends Controller
     /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.download');
+        $title = 'Download Area';
+        $data_download = Download::latest()->get();
+        return view('user.download', compact('title', 'data_download'));
+    }
+
+    public function downloadFile($id)
+    {
+        $data_download = Download::where('id', $id)->first();
+        $filepath = public_path("file/download-area/{$data_download->file}");
+        return \Response::download($filepath);
+
+        // $path = Download::where("id", $id)->value("file");
+        // return Storage::download($path);
+
+        // $url = Storage::url($file);
+        // $download = Download::table('file')->get();
+        // return Storage::download($url);
+        // view("files.download", compact('$download'));
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */
@@ -32,16 +49,16 @@ class DownloadController extends Controller
         // ]);
 
         $data_download = new Download;
-        if($request->file()) {
+        if ($request->file()) {
             $file = $request->file('file');
-            $fileName = time().'.'.$request->file->getClientOriginalExtension();
+            $fileName = time() . '.' . $request->file->getClientOriginalExtension();
             $file->move(public_path('file/download-area/'), $fileName);
 
             $data_download->judul = $request->judul;
             $data_download->file = $fileName;
             // dd($data_download);
             $data_download->save();
-            return redirect()->back()->with('success','Data Berhasil Ditambahkan!');
+            return redirect()->back()->with('success', 'Data Berhasil Ditambahkan!');
         }
     }
 
@@ -67,18 +84,17 @@ class DownloadController extends Controller
             return redirect()->back()->with(['error' => 'Data Tidak Ditemukan!']);
         }
         // upload file baru
-        if($request->file()) {
+        if ($request->file()) {
             $file = $request->file('file');
-            $fileName = time().'.'.$request->file->getClientOriginalExtension();
+            $fileName = time() . '.' . $request->file->getClientOriginalExtension();
             $file->move(public_path('file/download-area/'), $fileName);
 
             $data_download->judul = $request->judul;
             $data_download->file = $fileName;
             // dd($data_download);
             $data_download->save();
-            return redirect()->route('download.list')->with('success','Data Berhasil Diedit!');
+            return redirect()->route('download.list')->with('success', 'Data Berhasil Diedit!');
         }
-
     }
 
     public function destroy($id)

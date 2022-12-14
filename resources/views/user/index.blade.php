@@ -432,22 +432,19 @@
             <div class="testimonials-slider swiper">
                 <div class="swiper-wrapper">
 
+                    @foreach ($data_video as $video)
                     <div class="swiper-slide">
                         <div class="testimonial-item">
-                            {{-- <div class="videoWrapper">
-                                    <iframe src="https://www.youtube.com/watch?v=Y48EAk_qMf0&list=RD5YlJt5EYrlM&index=24" frameborder="0" allowfullscreen class="video"></iframe>
-                                </div> --}}
                             <div class="col-md-12">
-                                @foreach ($data_video as $video)
                                     <iframe class="embed-responsive-item" style="height: 100%"
                                         src="https://www.youtube.com/embed/{{ explode('v=', $video->link)[1] }}"
                                         allowfullscreen>
                                     </iframe>
-                                @endforeach
                             </div>
                             {{-- https://www.youtube.com/embed/{{ explode('v=',  $video->link)[1] }} --}}
                         </div>
                     </div><!-- End testimonial item -->
+                    @endforeach
 
                 </div>
                 <div class="swiper-pagination"></div>

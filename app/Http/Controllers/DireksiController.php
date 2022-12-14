@@ -10,7 +10,9 @@ class DireksiController extends Controller
     /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.direksi');
+        $title = 'Direksi';
+        $data_direksi = Direksi::latest()->get();
+        return view('user.direksi', compact('data_direksi','title'));
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */

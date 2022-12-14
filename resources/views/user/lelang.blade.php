@@ -32,23 +32,28 @@
                             <div class="member-img">
                                 @foreach ($lelang->gambar as $gambar)
                                     <img src="{{ url('image/lelang/' . $gambar->gambar) }}" class="img-fluid"
-                                        alt="">
-                                @break
-                            @endforeach
+                                        alt=""> @break
+                                @endforeach
+                            </div>
+                            <div class="member-info">
+                                <p style="font-weight:bold;color: #0ea2bd;">Rp. {{ number_format($lelang->harga) }}
+                                </p>
+                                <p>{{ date('d F Y', strtotime($lelang->tanggal)) }}</p>
+                                <h4>{{ $lelang->judul }}e</h4>
+                                <span>{{ substr($lelang->lokasi, 0, 75) }} ...</span>
+                                <br><a href="{{ route('lelang.detail', $lelang->id) }}"
+                                    class="read-more align-self-start">Read More <i class="bi bi-arrow-right"></i></a>
+                            </div>
                         </div>
-                        <div class="member-info">
-                            <p style="font-weight:bold;color: #0ea2bd;">Rp. {{ number_format($lelang->harga) }}
-                            </p>
-                            <p>{{ date('d F Y', strtotime($lelang->tanggal)) }}</p>
-                            <h4>{{ $lelang->judul }}e</h4>
-                            <span>{{ substr($lelang->lokasi,0,75) }} ...</span>
-                            <br><a href="{{ route('lelang.detail', $lelang->id) }}" class="read-more align-self-start">Read More <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div><!-- End Team Member -->
-            @endforeach
-        </div>
+                    </div><!-- End Team Member -->
+                @endforeach
+            </div>
+
+            <div class="blog-pagination">
+                {{-- <div class="justify-content-center"> --}}
+                    {{ $data_lelang->links('pagination::bootstrap-5') }}
+                {{-- </div> --}}
+            </div>
 
     </div>
 </section><!-- End Team Section -->

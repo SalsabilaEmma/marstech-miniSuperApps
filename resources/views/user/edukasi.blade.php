@@ -21,12 +21,12 @@
         <div class="container" data-aos="fade-up">
 
           <div class="section-header">
-            <h2>Edukasi</h2>
-            <p>Example inner page template</p>
+            <h2>{{ $data_edukasi->judul }}</h2>
+            <p>{{ date('d F Y', strtotime($data_edukasi->tanggal)) }}</p>
           </div>
 
           <p>
-            You can duplicate this page and create any number of pages you like!
+            {!! $data_edukasi->isi !!}
           </p>
 
         </div>

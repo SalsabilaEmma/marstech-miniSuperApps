@@ -14,7 +14,7 @@ class LelangController extends Controller
     public function index()
     {
         $title = 'Daftar Lelang';
-        $data_lelang = Lelang::latest()->get();
+        $data_lelang = Lelang::latest()->paginate(6);
         return view('user.lelang', compact('data_lelang', 'title'));
     }
     public function indexLelangDetail($id)

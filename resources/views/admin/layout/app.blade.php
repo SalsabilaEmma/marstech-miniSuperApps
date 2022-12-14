@@ -78,6 +78,17 @@
 
     <script src="{{ url('otika') }}/assets/js/page/gallery1.js"></script>
 
+    <!-- GOOGLE RECAPTCHA -->
+
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+    <script>
+        function onSubmit(token) {
+            document.getElementById("recaptcha-form").submit();
+        }
+    </script>
+
+
 
 @show
 @yield('js')

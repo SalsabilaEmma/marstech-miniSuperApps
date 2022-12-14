@@ -40,8 +40,9 @@
                                             <tr class="text-center">
                                                 <th style="width: 50px">No</th>
                                                 <th>Judul</th>
-                                                <th>Tanggal</th>
-                                                <th style="width: 215px">Action</th>
+                                                {{-- <th>Keterangan</th> --}}
+                                                <th>Preview</th>
+                                                <th style="width: 250px">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -49,17 +50,25 @@
                                                 <tr>
                                                     <td class="text-center">{{ $loop->iteration }}</td>
                                                     <td>{{ $galeri->judul }}</td>
-                                                    <td>{{ date('d F Y', strtotime($galeri->tanggal)) }}</td>
+                                                    {{-- <td>{{ $galeri->ket }}</td> --}}
+                                                    <td>
+                                                        <div class="zoom">
+                                                            <img id="file" class="profile-user-img img-responsive"
+                                                                style="height: 150px; width: auto; display: block; margin: auto;"
+                                                                src="{{ url('image/galeri/' . $galeri->file) }}"
+                                                                alt="Galeri">
+                                                        </div>
+                                                    </td>
                                                     <td class="text-center">
                                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                                             action="{{ route('galeri.destroy', $galeri->id) }}"
                                                             method="POST">
-                                                            <button type="button" class="show btn btn-sm btn-outline-info"
+                                                            {{-- <button type="button" class="show btn btn-sm btn-outline-info"
                                                                 data-id="{{ $galeri->id }}"
                                                                 data-judul="{{ $galeri->judul }}"
-                                                                data-foto="{{ $galeri->gambar }}">
-                                                                <i data-feather="info"></i> Detail
-                                                            </button>
+                                                                data-isi="{{ $galeri->isi }}">
+                                                                <i data-feather="info"></i>
+                                                            </button> --}}
                                                             <a href="{{ route('galeri.edit', $galeri->id) }}"
                                                                 class="btn btn-sm btn-outline-success"><i
                                                                     data-feather="edit"></i> Edit
@@ -95,45 +104,44 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('galeri.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('galeri.store') }}" method="POST" id="recaptcha-form"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Judul {{ $title }}</label>
-                                    <div class="input-group">
-                                        <input type="text" required
-                                            class="form-control @error('judul') is-invalid @enderror"
-                                            placeholder="Judul {{ $title }}" name="judul">
-                                        @error('judul')
-                                            <small>{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>File</label>
-                                    <div id="inputFormRow">
-                                        <div class="input-group">
-                                            <input type="file" required name="foto[]" autocomplete="off"
-                                                class="m-input form-control @error('foto') is-invalid @enderror" placeholder=""
-                                                accept="image/*" id="file-input" onchange="imageExtensionValidate(this)">
-                                            @error('foto')
-                                                <small>{{ $message }}</small>
-                                            @enderror
-                                            <div class="input-group-append">
-                                                <button id="removeRow" type=""
-                                                    class="btn btn-outline-danger btn-sm fa fa-trash"></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="form-group">
+                            <label>Judul {{ $title }}</label>
+                            <div class="input-group">
+                                <input type="text" required class="form-control @error('judul') is-invalid @enderror"
+                                    placeholder="Judul Galeri" name="judul">
+                                @error('judul')
+                                    <small>{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
-                        <div id="newRow"></div>
-                        <button id="addRow" type="button" class="btn btn-success m-t-15 waves-effect">+ Tambah
-                            Baris</button>
+                        {{-- <div class="form-group">
+                            <label>Keterangan</label>
+                            <div class="input-group">
+                                <input type="text" required class="form-control @error('ket') is-invalid @enderror"
+                                    placeholder="Judul Galeri" name="ket">
+                                @error('ket')
+                                    <small>{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div> --}}
+                        <div class="form-group">
+                            <label>File</label>
+                            <div class="input-group">
+                                <input type="file" required name="file" accept="image/*" id="file-input"
+                                    onchange="imageExtensionValidate(this)"
+                                    class="form-control @error('file') is-invalid @enderror" placeholder="Deskripsi Galeri">
+                                @error('file')
+                                    <small>{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Submit</button>
                             <button type="button" class="btn btn-outline-dark m-t-15 waves-effect"
                                 data-dismiss="modal">Cancel</button>
                         </div>
@@ -142,35 +150,39 @@
             </div>
         </div>
     </div>
-    {{-- <?= $l['id_laporan'] ?> --}}
     <!-- Modal lihat data -->
-    <div class="modal fade" id="lihatdata" tabindex="-1" role="dialog" aria-labelledby="formModal"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="lihatdata" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="formModal">Detail {{ $title }}</h5>
+                    <h5 class="modal-title" id="formModal">Detail Galeri</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>Judul {{ $title }}</label>
-                                <div class="input-group">
-                                    <input type="hidden" name="id" id="id">
-                                    <input type="text" required name="judul" id="judul" value=""
-                                        class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="gallery gallery-md">
-                                    <input type="hidden" name="id" id="id">
-                                    <div name="foto" class="zoom3" id="foto" data-title="Image"></div>
-                                </div>
-                            </div>
+                    <div class="form-group">
+                        <label>Judul {{ $title }}</label>
+                        <div class="input-group">
+                            <input type="hidden" name="id" id="id">
+                            <input type="text" required name="judul" id="judul" value=""
+                                class="form-control" name="judul" readonly>
+                        </div>
+                    </div>
+                    {{-- <div class="form-group">
+                        <label>Keterangan</label>
+                        <div class="input-group">
+                            <input type="hidden" name="id" id="id">
+                            <input type="text" required name="ket" id="ket" value="" class="form-control"
+                                name="ket" readonly>
+                        </div>
+                    </div> --}}
+                    <div class="form-group">
+                        <label>Deskripsi</label>
+                        <div class="input-group">
+                            <input type="hidden" name="id" id="id">
+                            <input type="text" required name="isi" id="isi" value=""
+                                class="form-control" name="isi" readonly>
                         </div>
                     </div>
                     <div class="text-right">
@@ -181,57 +193,15 @@
             </div>
         </div>
     </div>
-    {{-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-        // add row
-        $("#addRow").click(function() {
-            var html = '';
-            html += '<div id="inputFormRow">';
-            html += '<div class="input-group">';
-            html +=
-                '<input type="file" name="foto[]" class="form-control m-input" autocomplete="off" accept="image/*" id="file-input" onchange="imageExtensionValidate(this)">';
-            //
-            html += '<div class="input-group-append">';
-            html +=
-                '<button id="removeRow" type="button" class="btn btn-outline-danger btn-sm fa fa-trash"></button>';
-            html += '</div>';
-            html += '</div>';
-            html += '</div>';
-
-            $('#newRow').append(html);
-        });
-
-        // remove row
-        $(document).on('click', '#removeRow', function() {
-            $(this).closest('#inputFormRow').remove();
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.show').click(function() {
-                $("#foto").empty();
-                $('#lihatdata').modal('show');
-                $("#lihatdata").find("#id").attr("value", $(this).data('id'));
-                $("#lihatdata").find("#judul").attr("value", $(this).data('judul'));
-                // $("#lihatdata").find("#detail").attr("value", $(this).data('detail'));
-                $("#lihatdata").find("#foto").attr("value", $(this).data('foto'));
-                $('#detail').summernote('code', ($(this).data('detail')));
-
-                // Tampilin Gambar dari tabel lain yg berelasi
-                var fileFoto = $(this).data('foto');
-                let text = "";
-                for (let i = 0; i < fileFoto.length; i++) {
-                    console.log(fileFoto[i].gambar);
-                    var foto = "<?php url(); ?>/image/galeri/" + fileFoto[i].gambar;
-                    var img = document.createElement("img");
-                    img.style = "width: 10rem; padding-right:1rem";
-                    // img.class = "zoom3";
-                    img.src = "<?php url(); ?>/image/galeri/" + fileFoto[i].gambar;
-                    var src = document.getElementById("foto");
-                    src.appendChild(img);
-                }
-            });
-        });
-    </script>
 @endsection
+{{-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.show').click(function() {
+            $('#lihatdata').modal('show');
+            $("#lihatdata").find("#id").attr("value", $(this).data('id'));
+            $("#lihatdata").find("#judul").attr("value", $(this).data('judul'));
+            $("#lihatdata").find("#file").attr("value", $(this).data('file'));
+        });
+    });
+</script> --}}

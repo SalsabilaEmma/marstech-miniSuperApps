@@ -65,8 +65,8 @@
                         Kami</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('about.list') }}">About Us</a></li>
-                    <li><a class="nav-link" href="{{ route('sejarah.list') }}">Sejarah</a></li>
                     <li><a class="nav-link" href="{{ route('vismis.list') }}">Visi Misi</a></li>
+                    <li><a class="nav-link" href="{{ route('sejarah.list') }}">Sejarah</a></li>
                     <li><a class="nav-link" href="{{ route('penghargaan.list') }}">Penghargaan</a></li>
                     <li><a class="nav-link" href="{{ route('direksi.list') }}">Direksi</a></li>
                     <li><a class="nav-link" href="{{ route('jaringan.list') }}">Jaringan Kantor</a></li>

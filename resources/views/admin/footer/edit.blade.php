@@ -16,7 +16,7 @@
                         <h4>Edit {{ $title }}</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('footer.update', $data_footer->id) }}" method="POST"
+                        <form action="{{ route('footer.update', $data_footer->id) }}" method="POST" id="recaptcha-form"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="modal-body">
@@ -26,9 +26,9 @@
                                             <label>Email</label>
                                             <div class="input-group">
                                                 <input type="hidden" name="id" id="id">
-                                                <input type="text" id="email" value="{{ $data_footer->email }}" required
-                                                    class="form-control @error('email') is-invalid @enderror" placeholder="email"
-                                                    name="email">
+                                                <input type="text" id="email" value="{{ $data_footer->email }}"
+                                                    required class="form-control @error('email') is-invalid @enderror"
+                                                    placeholder="email" name="email">
                                                 @error('email')
                                                     <small>{{ $message }}</small>
                                                 @enderror
@@ -40,8 +40,8 @@
                                             <label>No Telepon</label>
                                             <div class="input-group">
                                                 <input type="hidden" name="id" id="id">
-                                                <input type="text" id="no_telp" value="{{ $data_footer->no_telp }}" required
-                                                    class="form-control @error('no_telp') is-invalid @enderror"
+                                                <input type="text" id="no_telp" value="{{ $data_footer->no_telp }}"
+                                                    required class="form-control @error('no_telp') is-invalid @enderror"
                                                     placeholder="No Telepon" name="no_telp">
                                                 @error('no_telp')
                                                     <small>{{ $message }}</small>
@@ -55,8 +55,8 @@
                                     <div class="input-group">
                                         <input type="hidden" name="id" id="id">
                                         <input type="text" id="lokasi" value="{{ $data_footer->lokasi }}" required
-                                            class="form-control @error('lokasi') is-invalid @enderror"
-                                            placeholder="lokasi" name="lokasi">
+                                            class="form-control @error('lokasi') is-invalid @enderror" placeholder="lokasi"
+                                            name="lokasi">
                                         @error('lokasi')
                                             <small>{{ $message }}</small>
                                         @enderror
@@ -84,7 +84,9 @@
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Ubah</button>
+                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                        data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                        data-action='submit'>Ubah</button>
                                     <a href="{{ route('footer.list') }}">
                                         <button type="button"
                                             class="btn btn-outline-dark m-t-15 waves-effect">Kembali</button>

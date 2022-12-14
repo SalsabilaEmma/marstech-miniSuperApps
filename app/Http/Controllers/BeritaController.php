@@ -14,7 +14,7 @@ class BeritaController extends Controller
     {
         $title = 'Berita';
         $author = 'Admin BPR Ciki';
-        $data_berita = Berita::latest()->get();
+        $data_berita = Berita::latest()->paginate(6);
         return view('user.berita', compact('title', 'data_berita', 'author'));
     }
     public function indexBeritaDetail($id)

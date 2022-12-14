@@ -4,7 +4,7 @@
 
             <a href="{{ route('index') }}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
-                <!-- <img src="assets/img/logo.png" alt=""> -->
+                {{-- <img src="{{ url('HeroBiz') }}/assets/image/1ciki-transparan.png" alt=""> --}}
                 <h1>BPR<span>. Ciki</span></h1>
             </a>
 

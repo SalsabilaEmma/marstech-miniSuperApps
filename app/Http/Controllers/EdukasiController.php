@@ -16,6 +16,12 @@ class EdukasiController extends Controller
         return view('user.edukasi');
     }
 
+    public function show($id)
+    {
+        $data_edukasi = Edukasi::find($id);
+        return view('user.edukasi', compact('data_edukasi'));
+    }
+
     public function indexEdukasiDetail()
     {
         return view('user.edukasi-detail');

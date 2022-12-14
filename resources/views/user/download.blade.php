@@ -6,10 +6,10 @@
         <div class="container">
 
           <div class="d-flex justify-content-between align-items-center">
-            <h2>Download Area</h2>
+            <h2>{{ $title }}</h2>
             <ol>
               <li><a href="{{ route('index') }}">Home</a></li>
-              <li>Download Area</li>
+              <li>{{ $title }}</li>
             </ol>
           </div>
 
@@ -21,49 +21,31 @@
         <div class="container" data-aos="fade-up">
 
           <div class="section-header">
-            <h2>Download Area</h2>
-            <p>Example inner page template</p>
+            <h2>{{ $title }}</h2>
+            {{-- <p>Example inner page template</p> --}}
           </div>
 
           <table id="example" class="table table-striped" style="width:100%">
             <thead>
-                <tr class="text-center">
-                    <th>No</th>
-                    <th>Nama File</th>
-                    <th>Download</th>
+                <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Nama File</th>
+                    <th class="text-center">Download</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($data_download as $download)
                 <tr>
-                    <td class="text-center">1</td>
-                    <td>System Architect</td>
-                    <td class="text-center"><button class="btn btn-primary">Download</button></td>
+                    <td class="text-center">{{ $loop->iteration }}</td>
+                    <td>{{ $download->judul }}</td>
+                    <td class="text-center">
+                        <a href="{{ route('download.downloadFile', $download->id) }}">
+                        {{-- <a href="{{ route('download.downloadFile', $download->file) }}"> --}}
+                            <button class="btn btn-primary">Download</button>
+                        </a>
+                    </td>
                 </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td>System Architect</td>
-                    <td class="text-center"><button class="btn btn-primary">Download</button></td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td>System Architect</td>
-                    <td class="text-center"><button class="btn btn-primary">Download</button></td>
-                </tr>
-                <tr>
-                    <td class="text-center">4</td>
-                    <td>System Architect</td>
-                    <td class="text-center"><button class="btn btn-primary">Download</button></td>
-                </tr>
-                <tr>
-                    <td class="text-center">5</td>
-                    <td>System Architect</td>
-                    <td class="text-center"><button class="btn btn-primary">Download</button></td>
-                </tr>
-                <tr>
-                    <td class="text-center">6</td>
-                    <td>System Architect</td>
-                    <td class="text-center"><button class="btn btn-primary">Download</button></td>
-                </tr>
+                @endforeach
             </tbody>
             {{-- <tfoot>
                 <tr>

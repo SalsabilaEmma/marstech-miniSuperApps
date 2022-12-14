@@ -16,14 +16,15 @@
                         <h4>Edit {{ $title }}</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('promo.update', $data_promo->id) }}" method="POST"
+                        <form action="{{ route('promo.update', $data_promo->id) }}" method="POST" id="recaptcha-form"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label>Judul</label>
                                     <div class="input-group">
-                                        <input type="text" required name="nama" id="nama" value="{{ $data_promo->nama }}"
+                                        <input type="text" required name="nama" id="nama"
+                                            value="{{ $data_promo->nama }}"
                                             class="form-control @error('nama') is-invalid @enderror"><br>
                                         @error('nama')
                                             <small>{{ $message }}</small>
@@ -33,7 +34,8 @@
                                 <div class="form-group">
                                     <label>Gambar {{ $title }}</label>
                                     <div class="input-group">
-                                        <input type="file" required name="file" id="file" autocomplete="off" accept="image/*" id="file-input" onchange="imageExtensionValidate(this)"
+                                        <input type="file" required name="file" id="file" autocomplete="off"
+                                            accept="image/*" id="file-input" onchange="imageExtensionValidate(this)"
                                             class="form-control @error('file') is-invalid @enderror">
                                         @error('file')
                                             <small>{{ $message }}</small>
@@ -51,7 +53,9 @@
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect">Ubah</button>
+                                    <button type="submit" class="btn btn-outline-primary m-t-15 waves-effect g-recaptcha"
+                                        data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                        data-action='submit'>Ubah</button>
                                     <a href="{{ route('promo.list') }}">
                                         <button type="button"
                                             class="btn btn-outline-dark m-t-15 waves-effect">Kembali</button>

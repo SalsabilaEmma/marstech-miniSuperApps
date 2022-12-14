@@ -10,7 +10,9 @@ class JaringanKantorController extends Controller
     /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.jaringan-kantor');
+        $title = 'Jaringan Kantor';
+        $data_jaringan = JaringanKantor::latest()->get();
+        return view('user.jaringan-kantor', compact('data_jaringan','title'));
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */

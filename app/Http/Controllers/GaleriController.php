@@ -13,7 +13,8 @@ class GaleriController extends Controller
     /**  User Side -------------------------------------------------------------------------------------------------- */
     public function index()
     {
-        return view('user.galeri');
+        $data_galeri = Galeri::latest()->paginate(9);
+        return view('user.galeri', compact('data_galeri'));
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */
@@ -26,35 +27,112 @@ class GaleriController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'kode_aset' => 'required',
-        //     'judul' => 'required',
-        // ]);
-        $images = $request->file('foto');
-        $data_foto = [];
+        $request->validate([
+            'judul' => 'required',
+            // 'ket' => 'required',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+        // if (!File::isDirectory('image/galeri/' . $request->id)) {
+        //     File::makeDirectory('image/galeri/' . $request->id);  /** bikin folder baru tiap upload sesuai id parent */
+        // }
 
-        // dd($namafile);
-        $data = new Galeri();
-        $data->id = $request->id;
-        $data->judul = $request->judul;
-        $data->foto = json_encode($data_foto);
-        $data->save();
-        foreach ($images as $key => $image) {
-            $namafile = time() . $key + 1 . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(400, 400, function ($constraint) {
-                /** thumbnail */
-                $constraint->aspectRatio();
-            })->save('image/galeri/' . $namafile);
-            $image->move('image/galeri-original/', $namafile);
-            /** ukuran file asli */
-            array_push($data_foto, $namafile);
+        $image = $request->file('file');
+        $judulfile = time() . '.' . $image->getClientOriginalExtension();
 
-            $data->gambar()->create([
-                "gambar" => $namafile
-            ]);
-        }
+        Image::make($image)->resize(400, 400, function ($constraint) {
+            /** thumbnail */
+            $constraint->aspectRatio();
+        })->save('image/galeri/' . $judulfile);
+        $image->move('image/galeri-original/', $judulfile);
+        /** ukuran file asli */
+
+        $gallery = new Galeri;
+        $gallery->id = $request->id;
+        $gallery->judul = $request->judul;
+        // $gallery->ket = $request->ket;
+        $gallery->file = $judulfile;
+        $gallery->save();
+        // dd($gallery);
         return redirect()->back()->with('success', 'Data Berhasil Ditambahkan!');
     }
+
+    // public function store(Request $request)
+    // {
+    //     // $request->validate([
+    //     //     'kode_aset' => 'required',
+    //     //     'judul' => 'required',
+    //     // ]);
+    //     $images = $request->file('foto');
+    //     $data_foto = [];
+    //     $data = new Galeri();
+    //     $data->id = $request->id;
+    //     $data->judul = $request->judul;
+    //     $data->foto = json_encode($data_foto);
+    //     $data->save();
+    //     // foreach ($images as $key => $image) {
+    //     //     $namafile = time() . $key + 1 . '.' . $image->getClientOriginalExtension();
+    //     //     Image::make($image)->resize(400, 400, function ($constraint) {
+    //     //         /** thumbnail */
+    //     //         $constraint->aspectRatio();
+    //     //     })->save('image/galeri/' . $namafile);
+    //     //     $image->move('image/galeri-original/', $namafile);
+    //     //     /** ukuran file asli */
+    //     //     array_push($data_foto, $namafile);
+
+    //     //     $data->gambar()->create([
+    //     //         "gambar" => $namafile
+    //     //     ]);
+    //     // }
+    //     return redirect()->back()->with('success', 'Data Berhasil Ditambahkan!');
+    // }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $data_galeri = Galeri::findOrfail($id);
+    //     // dd($data_galeri);
+    //     // $request->validate([
+    //     //     'judul' => 'required',
+    //     //     'kode_aset' => 'required',
+    //     //     'detail' => 'required',
+    //     //     'harga' => 'required',
+    //     //     'lokasi' => 'required',
+    //     //     'tanggal' => 'required',
+    //     //     'no_telp' => 'required',
+    //     //     'foto[]' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+    //     // ]);
+    //     // $data = json_decode($data_galeri->foto);
+    //     //     if (File::exists(public_path('/image/galeri/' . $foto))) {
+    //     //         // delete file lama
+    //     //         File::delete(public_path('/image/galeri/' . $foto));
+    //     //         File::delete(public_path('/image/galeri-original/' . $foto));
+    //     //     }
+    //     // }
+    //     // upload file baru
+    //     $images = $request->file('foto');
+    //     $data_foto = [];
+
+    //     $data_galeri->judul = $request->judul;
+    //     // $data_galeri->foto = json_encode($data_foto);
+    //     $data_galeri->foto = " ";
+    //     $data_galeri->save();
+    //     if ($images != NULL) {
+    //         foreach ($images as $key => $image) {
+    //             $judulfile = time() . $key + 1 . '.' . $image->getClientOriginalExtension();
+    //             Image::make($image)->resize(400, 400, function ($constraint) {
+    //                 /** thumbnail */
+    //                 $constraint->aspectRatio();
+    //             })->save('image/galeri/' . $judulfile);
+    //             $image->move('image/galeri-original/', $judulfile);
+    //             /** ukuran file asli */
+    //             array_push($data_foto, $judulfile);
+    //             /** create file sesuai id */
+    //             $data_galeri->gambar()->create([
+    //                 "gambar" => $judulfile
+    //             ]);
+    //         }
+    //     }
+    //     return redirect()->route('galeri.list')->with(['success' => 'Data Berhasil Diubah!']);
+    // }
 
     public function show($id)
     {
@@ -68,51 +146,34 @@ class GaleriController extends Controller
         return view('admin.galeri.edit', compact('data_galeri', 'title'));
     }
 
+
     public function update(Request $request, $id)
     {
         $data_galeri = Galeri::findOrfail($id);
-        // dd($data_galeri);
-        // $request->validate([
-        //     'judul' => 'required',
-        //     'kode_aset' => 'required',
-        //     'detail' => 'required',
-        //     'harga' => 'required',
-        //     'lokasi' => 'required',
-        //     'tanggal' => 'required',
-        //     'no_telp' => 'required',
-        //     'foto[]' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        // ]);
-        // $data = json_decode($data_galeri->foto);
-        //     if (File::exists(public_path('/image/galeri/' . $foto))) {
-        //         // delete file lama
-        //         File::delete(public_path('/image/galeri/' . $foto));
-        //         File::delete(public_path('/image/galeri-original/' . $foto));
-        //     }
-        // }
-        // upload file baru
-        $images = $request->file('foto');
-        $data_foto = [];
-
-        $data_galeri->judul = $request->judul;
-        // $data_galeri->foto = json_encode($data_foto);
-        $data_galeri->foto = " ";
-        $data_galeri->save();
-        if ( $images != NULL ) {
-            foreach ($images as $key => $image) {
-                $namafile = time() . $key + 1 . '.' . $image->getClientOriginalExtension();
-                Image::make($image)->resize(400, 400, function ($constraint) {
-                    /** thumbnail */
-                    $constraint->aspectRatio();
-                })->save('image/galeri/' . $namafile);
-                $image->move('image/galeri-original/', $namafile);
-                /** ukuran file asli */
-                array_push($data_foto, $namafile);
-                /** create file sesuai id */
-                $data_galeri->gambar()->create([
-                    "gambar" => $namafile
-                ]);
-            }
+        $request->validate([
+            'judul' => 'required',
+            // 'ket' => 'required',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+        if (File::exists(public_path('/image/galeri/' . $data_galeri->file))) {  // cek didalem id itu ada file/gambare nggak
+            // delete file lama
+            File::delete(public_path('/image/galeri/' . $data_galeri->file));
+            File::delete(public_path('/image/galeri-original/' . $data_galeri->file));
+        } else {
+            return redirect()->back()->with(['error' => 'Data Tidak Ditemukan!']);
         }
+        // upload file baru
+        $image = $request->file('file');
+        $judulfile = time() . '.' . $image->getClientOriginalExtension();
+        Image::make($image)->resize(400, 400, function ($constraint) {  // thumbnail
+            $constraint->aspectRatio();
+        })->save('image/galeri/' . $judulfile);
+        $image->move('image/galeri-original/', $judulfile); // ukuran file asli
+        // perubahan judul & file
+        $data_galeri->judul = $request->judul;
+        // $data_galeri->ket = $request->ket;
+        $data_galeri->file = $judulfile;
+        $data_galeri->save();
         return redirect()->route('galeri.list')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
@@ -120,7 +181,7 @@ class GaleriController extends Controller
     {
         $data_galeri = Galeri::findOrfail($id);
         $data_galeri->delete();
-        $data_galeri->gambar()->delete();
+        // $data_galeri->gambar()->delete();
         return redirect()->back()->with(['error' => 'Data Berhasil Dihapus!']);
     }
 

@@ -21,56 +21,26 @@
 
             <div class="section-header">
                 <h2>Pengumuman Lowongan Kerja</h2>
-                <p>Architecto nobis eos vel nam quidem vitae temporibus voluptates qui hic deserunt iusto omnis nam
-                    voluptas asperiores sequi tenetur dolores incidunt enim voluptatem magnam cumque fuga.</p>
+                {{-- <p>Dapatkan Informasi </p> --}}
             </div>
 
             <div class="row gy-5">
-
+                @foreach ($data_karir as $karir)
                 <div class="col-xl-4 col-md-6 d-flex" data-aos="zoom-in" data-aos-delay="200">
                     <div class="team-member">
                         <div class="member-img">
-                            <img src="{{ url('HeroBiz') }}/assets/img/team/team-1.jpg" class="img-fluid" alt="">
+                            <img src="{{url('/image/pengumuman-karir/' .$karir->file)}}" class="img-fluid" alt="">
                         </div>
                         <div class="member-info">
-                            <p style="font-weight:bold;color: #0ea2bd;">11 Nov 2022</p>
-                            <h4>Walter White</h4>
-                            <span>Chief Executive Officer</span>
-                            <br><a href="{{ route('karir.detail') }}" class="read-more align-self-start">Read More <i
+                            <p style="font-weight:bold;color: #0ea2bd;">Batas Waktu : {{ date('d F Y', strtotime($karir->tglmax)) }}</p>
+                            <h4>{{ $karir->judul }}</h4>
+                            <p>{{ date('d F Y', strtotime($karir->created_at)) }}</p>
+                            <br><a href="{{ route('karir.detail', $karir->id) }}" class="read-more align-self-start">Read More <i
                                     class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
-                </div><!-- End Team Member -->
-
-                <div class="col-xl-4 col-md-6 d-flex" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="team-member">
-                        <div class="member-img">
-                            <img src="{{ url('HeroBiz') }}/assets/img/team/team-2.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="member-info">
-                            <p style="font-weight:bold;color: #0ea2bd;">11 Nov 2022</p>
-                            <h4>Sarah Jhonson</h4>
-                            <span>Product Manager</span>
-                            <br><a href="{{ route('karir.detail') }}" class="read-more align-self-start">Read More <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div><!-- End Team Member -->
-
-                <div class="col-xl-4 col-md-6 d-flex" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="team-member">
-                        <div class="member-img">
-                            <img src="{{ url('HeroBiz') }}/assets/img/team/team-3.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="member-info">
-                            <p style="font-weight:bold;color: #0ea2bd;">11 Nov 2022</p>
-                            <h4>William Anderson</h4>
-                            <span>CTO</span>
-                            <br><a href="{{ route('karir.detail') }}" class="read-more align-self-start">Read More <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div><!-- End Team Member -->
+                </div>
+                @endforeach
 
             </div>
 

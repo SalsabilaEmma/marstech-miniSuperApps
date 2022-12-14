@@ -24,7 +24,8 @@
             </div>
             <div id="accordion">
                 <div class="card-header">
-                    <h4 style="color:#3d6098;"><strong>3 Langkah mudah untuk pengajuan {{ $title }}, Kredit, Deposito</strong>
+                    <h4 style="color:#3d6098;"><strong>3 Langkah mudah untuk pengajuan {{ $title }}, Kredit,
+                            Deposito</strong>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -120,7 +121,7 @@
         </div><br>
 
         <div class="container">
-            <form id="postForm" enctype="multipart/form-data" action="" method="post">
+            <form id="recaptcha-form" enctype="multipart/form-data" action="" method="post">
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm">
                         <h4 style="color:#484a46;"><strong>Data Pribadi</strong></h4>
@@ -189,12 +190,15 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <p>Dengan klik Buka {{ $title }} maka Petugas kami dapat segera membantu Anda untuk melakukan
+                            <p>Dengan klik Buka {{ $title }} maka Petugas kami dapat segera membantu Anda untuk
+                                melakukan
                                 Pembukaan {{ $title }} di BPR. Punya Ciki</p>
                         </div>
                         <div class="form-group text-right">
-                            <div class="g-recaptcha text-center" data-sitekey=""></div><br>
-                            <button type="submit" class="btn btn-primary">Kirim</button><br>
+                            {{-- <div class="g-recaptcha text-center" data-sitekey=""></div><br> --}}
+                            <button type="submit" class="btn btn-primary g-recaptcha"
+                                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
+                                data-action='submit'>Kirim</button><br>
                         </div>
                     </div>
                 </div>
