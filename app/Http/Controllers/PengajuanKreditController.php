@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deposito;
+use App\Models\Kredit;
 use App\Models\PengajuanKredit;
+use App\Models\Tabungan;
 use Illuminate\Http\Request;
 
 class PengajuanKreditController extends Controller
@@ -11,7 +14,10 @@ class PengajuanKreditController extends Controller
     public function index()
     {
         $title = 'Pengajuan Kredit';
-        return view('user.pengajuan-kredit', compact('title'));
+        $data_tabungan = Tabungan::latest()->get();
+        $data_deposito = Deposito::latest()->get();
+        $data_kredit = Kredit::latest()->get();
+        return view('user.pengajuan-kredit', compact('title','data_tabungan','data_deposito','data_kredit'));
     }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */

@@ -98,22 +98,25 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm text-center">
-                            <h6 style="color:#3d6098;" class="text-center"><strong>Produk {{ $title }}</strong></h6>
-                            {{-- <?php foreach ($tabungan as $kt => $vt) { ?>
-                            <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('tabungan/show/') . $vt->id_tabungan; ?>"><?php echo $vt->judul; ?></a>
-                            <?php } ?> --}}
+                            <h6 style="color:#3d6098;" class="text-center"><strong>Produk Tabungan</strong></h6>
+                            @foreach ($data_tabungan as $tabungan)
+                                <a class="btn btn-outline-dark btn-sm"
+                                    href="{{ route('produk.tabungan', $tabungan->id) }}">{{ $tabungan->judul }}</a>
+                            @endforeach
                         </div>
                         <div class="col-sm text-center">
                             <h6 style="color:#3d6098;" class="text-center"><strong>Produk Kredit</strong></h6>
-                            {{-- <?php foreach ($pembiayaan as $kk => $vk) { ?>
-                            <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('pembiayaan/show/') . $vk->id_pembiayaan; ?>"><?php echo $vk->judul; ?></a>
-                            <?php } ?> --}}
+                            @foreach ($data_kredit as $kredit)
+                                <a class="btn btn-outline-dark btn-sm"
+                                    href="{{ route('produk.kredit', $kredit->id) }}">{{ $kredit->judul }}</a>
+                            @endforeach
                         </div>
                         <div class="col-sm text-center">
                             <h6 style="color:#3d6098;" class="text-center"><strong>Produk Deposito</strong></h6>
-                            {{-- <?php foreach ($deposito as $kd => $vd) { ?>
-                            <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('deposito/show/') . $vd->id_deposito; ?>"><?php echo $vd->judul; ?></a>
-                            <?php } ?> --}}
+                            @foreach ($data_deposito as $deposito)
+                                <a class="btn btn-outline-dark btn-sm"
+                                    href="{{ route('produk.deposito', $deposito->id) }}">{{ $deposito->judul }}</a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -125,76 +128,75 @@
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm">
                         <h4 style="color:#484a46;"><strong>Data Pribadi</strong></h4>
-                        <!--   -->
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label>NIK</label>
                             <input required name="nik" value="" type="number" class="form-control" id="nik"
                                 placeholder="Masukkan NIK Sesuai KTP">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label>Nama Lengkap</label>
-                            <input required name="nama" value="" type="text" class="form-control" id="nama"
-                                placeholder="Masukkan Nama Lengkap Sesuai KTP">
+                            <input required name="nama" value="" type="text" class="form-control"
+                                id="nama" placeholder="Masukkan Nama Lengkap Sesuai KTP">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label>No HP Aktif</label>
                             <input required name="no_hp" value="" type="text" class="form-control"
                                 id="no_hp" placeholder="Masukkan No HP AKtif">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label>Email Aktif</label>
                             <input required name="email" value="" type="email" class="form-control"
                                 id="email" placeholder="Masukkan Email Aktif">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label>Foto</label>
                             <input required name="foto" type="file" class="form-control" id="foto">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label>Foto KTP</label>
                             <input required name="foto_ktp" type="file" class="form-control" id="foto_ktp">
                         </div>
                     </div>
                     <div class="col-sm">
                         <h4 style="color:#484a46;"><strong>Alamat</strong></h4>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label> </label>
                             <select name="provinsi" value="" class="form-control" id="provinsi"></select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <select name="kab_kota" value="" class="form-control" id="distrik">
                                 <option hidden value="">- Pilih Kota / Kabupaten -</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <select name="kecamatan" value="" class="form-control" id="kecamatan">
                                 <option selected hidden value="">- Pilih Kecamatan -</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <select name="desa" value="" class="form-control" id="desa">
                                 <option selected hidden value="">- Pilih Kelurahan / Desa -</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <textarea name="alamat" value="" class="form-control" id="alamat" rows="3"
                                 placeholder="Detail Alamat (Kecamatan, Desa, Nomor dll)"></textarea>
                         </div>
                     </div>
                     <div class="col-sm">
                         <h4 style="color:#484a46;"><strong>Pilih Produk</strong></h4>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label> </label>
                             <select name="produk_layanan" class="form-control" id="produk_layanan">
                                 <option selected hidden value="">- Produk Layanan -</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <p>Dengan klik Buka {{ $title }} maka Petugas kami dapat segera membantu Anda untuk
                                 melakukan
                                 Pembukaan {{ $title }} di BPR. Punya Ciki</p>
                         </div>
-                        <div class="form-group text-right">
+                        <div class="form-group mt-3 text-right">
                             {{-- <div class="g-recaptcha text-center" data-sitekey=""></div><br> --}}
                             <button type="submit" class="btn btn-primary g-recaptcha"
                                 data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'

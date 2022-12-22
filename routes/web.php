@@ -32,7 +32,6 @@ use App\Http\Controllers\PencapaianController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\VideoInteraksiController;
-use App\Models\Pencapaian;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,58 +44,74 @@ use App\Models\Pencapaian;
 |
 */
 
-// Route::GET('/', function () {
-//     return view('user.index');
-// });
-
 /** ------------------------------------------ USER -------------------------------------------------------- */
 Route::GET('/', [Controller::class, 'index'])->name('index');
 
+/** Kontak ................................................................................................. */
 Route::GET('/kontak', [ContactController::class, 'index'])->name('contact');
 Route::POST('/kontak/store', [ContactController::class, 'store'])->name('kontak.store');
 
+/** Visi Misi .............................................................................................. */
 Route::GET('/visi-misi', [VismisController::class, 'index'])->name('vismis');
 
+/** Sejarah ................................................................................................ */
 Route::GET('/sejarah', [SejarahController::class, 'index'])->name('sejarah');
 
+/** Direksi ................................................................................................ */
 Route::GET('/direksi', [DireksiController::class, 'index'])->name('direksi');
 
+/** Penghargaan ............................................................................................ */
 Route::GET('/penghargaan', [PenghargaanController::class, 'index'])->name('penghargaan');
 
+/** Jaringan Kantor ........................................................................................ */
 Route::GET('/jaringan-kantor', [JaringanKantorController::class, 'index'])->name('jaringan.kantor');
 
+/** Karir .................................................................................................. */
 Route::GET('/karir', [KarirController::class, 'index'])->name('karir');
 Route::GET('/karir-detail/{id?}', [KarirController::class, 'indexKarirDetail'])->name('karir.detail');
 
+/** Berita ................................................................................................. */
 Route::GET('/berita', [BeritaController::class, 'index'])->name('berita');
 Route::GET('/berita/show', [BeritaController::class, 'listUser'])->name('list.user');
 Route::GET('/berita-detail/{id?}', [BeritaController::class, 'indexBeritaDetail'])->name('berita.detail');
 
+/** Lelang ................................................................................................. */
 Route::GET('/lelang', [LelangController::class, 'index'])->name('lelang');
 Route::GET('/lelang-detail/{id?}', [LelangController::class, 'indexLelangDetail'])->name('lelang.detail');
 
+/** Edukasi ................................................................................................ */
 Route::GET('/edukasi', [EdukasiController::class, 'index'])->name('edukasi');
 Route::GET('/edukasi/show/{id?}', [EdukasiController::class, 'show'])->name('edukasi.show');
 
+/** Galeri ................................................................................................. */
 Route::GET('/galeri', [GaleriController::class, 'index'])->name('galeri');
 
+/** Download Area .......................................................................................... */
 Route::GET('/download-area', [DownloadController::class, 'index'])->name('download');
 Route::GET('/download-area/download/{id?}', [DownloadController::class, 'downloadFile'])->name('download.downloadFile');
 
+/** Laporan ................................................................................................ */
 Route::GET('/laporan', [LaporanController::class, 'index'])->name('laporan');
 
+/** Simulasi Kredit ........................................................................................ */
 Route::GET('/simulasi-kredit', [Controller::class, 'indexSimulasiKredit'])->name('simulasi.kredit');
 
+/** Buka Tabungan .......................................................................................... */
 Route::GET('/buka-tabungan', [BukaTabunganController::class, 'index'])->name('buka.tabungan');
+Route::POST('/buka-tabungan/store', [BukaTabunganController::class, 'store'])->name('buka.tabungan.store');
 
+/** Buka Deposito .......................................................................................... */
 Route::GET('/buka-deposito', [BukaDepositoController::class, 'index'])->name('buka.deposito');
 
+/** Pengajuan Kredit ....................................................................................... */
 Route::GET('/pengajuan-kredit', [PengajuanKreditController::class, 'index'])->name('pengajuan.kredit');
 
+/** Produk ................................................................................................. */
 Route::GET('/produk-tabungan', [ProdukTabunganController::class, 'index'])->name('produk.tabungan');
 Route::GET('/produk-deposito', [ProdukDepositoController::class, 'index'])->name('produk.deposito');
 Route::GET('/produk-kredit', [ProdukKreditController::class, 'index'])->name('produk.kredit');
 
+/** Subscribe ............................................................................................... */
 Route::POST('/', [SubscribeController::class, 'store'])->name('subscribe.store');
 
 /** -------------------------------------------------------------------------------------------------- Wilayah */
@@ -106,15 +121,10 @@ Route::GET('/kecamatan', [AssyncController::class, 'kecamatan'])->name('kecamata
 Route::GET('/desa', [AssyncController::class, 'desa'])->name('desa');
 /** -------------------------------------------------------------------------------------------------- End Wilayah */
 
-/** LOGIN GOOGLE */
-// Route::controller(GoogleController::class)->group(function(){
-//     Route::get('auth/google', 'loginWithGoogle')->name('auth.google');
-//     Route::get('auth/google/callback', 'handleGoogleCallBack');
-// });
-Route::prefix('google')->name('google.')->group( function() {
+/** Login Google ............................................................................................. */
+Route::prefix('google')->name('google.')->group(function () {
     Route::GET('auth', [GoogleController::class, 'loginWithGoogle'])->name('login');
     Route::any('callback', [GoogleController::class, 'callBackFromGoogle'])->name('callback');
-
 });
 
 /** ------------------------------------------ ADMIN -------------------------------------------------------- */
@@ -288,7 +298,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::GET('/user-account/edit/{id?}', [UserAccountController::class, 'edit'])->name('user.account.edit');
     Route::POST('/user-account/update/{id?}', [UserAccountController::class, 'update'])->name('user.account.update');
     Route::DELETE('/user-account/delete/{id?}', [UserAccountController::class, 'destroy'])->name('user.account.destroy');
-
 });
 
 

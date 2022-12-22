@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BukaDeposito;
 use App\Models\Deposito;
+use App\Models\Kredit;
+use App\Models\Tabungan;
 use Illuminate\Http\Request;
 
 class BukaDepositoController extends Controller
@@ -19,8 +21,10 @@ class BukaDepositoController extends Controller
     public function list()
     {
         $title = 'Buka Deposito';
-        $data_deposito = BukaDeposito::latest()->get();
-        return view('admin.deposito.list', compact('data_deposito','title'));
+        $data_tabungan = Tabungan::latest()->get();
+        $data_deposito = Deposito::latest()->get();
+        $data_kredit = Kredit::latest()->get();
+        return view('admin.deposito.list', compact('title','data_tabungan','data_deposito','data_kredit'));
     }
 
     public function detail($id)

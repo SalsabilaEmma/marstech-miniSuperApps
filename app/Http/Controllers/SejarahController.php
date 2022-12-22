@@ -32,19 +32,10 @@ class SejarahController extends Controller
             // 'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        // $image = $request->file('file');
-        // $judulfile = time() . '.' . $image->getClientOriginalExtension();
-
-        // Image::make($image)->resize(400, 400, function ($constraint) {  // thumbnail
-        //     $constraint->aspectRatio();
-        // })->save('image/sejarah/'.$judulfile);
-        // $image->move('image/sejarah-original/', $judulfile); // ukuran file asli
-
         $data_sejarah = new Sejarah;
         $data_sejarah->id = $request->id;
         $data_sejarah->judul = $request->judul;
         $data_sejarah->isi = $request->isi;
-        // $data_sejarah->file = $judulfile;
         $data_sejarah->save();
         // dd($data_sejarah);
         return redirect()->back()->with('success', 'Data Berhasil Ditambahkan!');

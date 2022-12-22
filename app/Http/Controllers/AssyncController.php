@@ -8,7 +8,7 @@ class AssyncController extends Controller
 {
     public function provinsi()
     {
-        dd('halo');
+        // dd('halo');
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.binderbyte.com/wilayah/provinsi?api_key=66ecbcf00fd4bb065a67d7579f5ff8c328ebd1a4321206ba466d7b916af1ff01",
@@ -46,8 +46,10 @@ class AssyncController extends Controller
     }
     public function distrik()
     {
-
+        
         $idProv_selected = $_POST['id_provinsi'];
+        // $idProv_selected = $request->id_provinsi;
+        // dd($idProv_selected);
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.binderbyte.com/wilayah/kabupaten?api_key=66ecbcf00fd4bb065a67d7579f5ff8c328ebd1a4321206ba466d7b916af1ff01&id_provinsi=" . $idProv_selected,
