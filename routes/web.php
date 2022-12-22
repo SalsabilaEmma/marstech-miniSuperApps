@@ -102,9 +102,11 @@ Route::POST('/buka-tabungan/store', [BukaTabunganController::class, 'store'])->n
 
 /** Buka Deposito .......................................................................................... */
 Route::GET('/buka-deposito', [BukaDepositoController::class, 'index'])->name('buka.deposito');
+Route::POST('/buka-deposito/store', [BukaDepositoController::class, 'store'])->name('buka.deposito.store');
 
 /** Pengajuan Kredit ....................................................................................... */
 Route::GET('/pengajuan-kredit', [PengajuanKreditController::class, 'index'])->name('pengajuan.kredit');
+Route::POST('/buka-kredit/store', [PengajuanKreditController::class, 'store'])->name('buka.kredit.store');
 
 /** Produk ................................................................................................. */
 Route::GET('/produk-tabungan', [ProdukTabunganController::class, 'index'])->name('produk.tabungan');

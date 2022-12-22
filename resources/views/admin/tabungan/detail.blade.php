@@ -17,7 +17,8 @@
                     </div>
                     <div class="card-body">
                         <div class="modal-body">
-                            <h5>Data Pribadi</h5><hr>
+                            <h5>Data Pribadi</h5>
+                            <hr>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -37,8 +38,14 @@
                                     <div class="form-group">
                                         <label>Foto KTP</label>
                                         <div class="input-group">
-                                            <input type="text" required name="foto_ktp" id="foto_ktp"
-                                                value="{{ $data_tabungan->foto_ktp }}" class="form-control" readonly>
+                                            <div class="zoom">
+                                                <img id="file" class="profile-user-img img-responsive"
+                                                    style="height: 150px; width: auto; display: block; margin: auto;"
+                                                    src="{{ url('image/buka-tabungan/' . $data_tabungan->nama . '/' . $data_tabungan->foto_ktp) }}">
+                                            </div>
+                                            {{-- <input type="text" required name="foto_ktp" id="foto_ktp"
+                                                value="{{ $data_tabungan->foto_ktp }}" class="form-control" readonly> --}}
+
                                         </div>
                                     </div>
                                 </div>
@@ -60,13 +67,17 @@
                                     <div class="form-group">
                                         <label>Foto</label>
                                         <div class="input-group">
-                                            <input type="text" required name="foto" id="foto"
-                                                value="{{ $data_tabungan->foto }}" class="form-control" readonly>
+                                            <div class="zoom">
+                                                <img id="file" class="profile-user-img img-responsive"
+                                                    style="height: 150px; width: auto; display: block; margin: auto;"
+                                                    src="{{ url('image/buka-tabungan/' . $data_tabungan->nama . '/' . $data_tabungan->foto) }}" >
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <h5>Alamat</h5><hr>
+                            <h5>Alamat</h5>
+                            <hr>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -110,21 +121,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <h5>Produk Layanan</h5><hr>
+                            <h5>Produk Layanan</h5>
+                            <hr>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Produk</label>
                                         <div class="input-group">
                                             <input type="text" required name="produk_layanan" id="produk_layanan"
-                                                value="{{ $data_tabungan->produk_layanan }}" class="form-control" readonly>
+                                                value="{{ $data_tabungan->produk_layanan }}" class="form-control"
+                                                readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-right">
                                 <a href="{{ route('buka.tabungan.list') }}">
-                                    <button type="button" class="btn btn-outline-dark m-t-15 waves-effect">Kembali</button>
+                                    <button type="button"
+                                        class="btn btn-outline-dark m-t-15 waves-effect">Kembali</button>
                                 </a>
                             </div>
                         </div>

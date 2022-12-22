@@ -134,9 +134,20 @@ class BeritaController extends Controller
             $data_berita->isi = $request->isi;
             $data_berita->file = $namafile;
             $data_berita->save();
-            return redirect()->route('berita.list')->with(['success' => 'Data Berhasil Diubah!']);
+            return redirect()->route('berita.list')->with('success' , 'Data Berhasil Diubah!');
         } else {
-            return redirect()->back()->with(['error' => 'Data Tidak Ditemukan!']);
+            $image = $request->file('file');
+            $namafile = time() . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(400, 400, function ($constraint) {  // thumbnail
+                $constraint->aspectRatio();
+            })->save('image/berita/' . $namafile);
+            $image->move('image/berita-original/', $namafile); // ukuran file asli
+            // perubahan judul & file
+            $data_berita->judul = $request->judul;
+            $data_berita->isi = $request->isi;
+            $data_berita->file = $namafile;
+            $data_berita->save();
+            return redirect()->route('berita.list')->with('success' , 'Data Berhasil Diubah!');
         }
 
         // $data_berita->update([

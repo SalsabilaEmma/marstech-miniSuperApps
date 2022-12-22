@@ -8,7 +8,6 @@ class AssyncController extends Controller
 {
     public function provinsi()
     {
-        // dd('halo');
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.binderbyte.com/wilayah/provinsi?api_key=66ecbcf00fd4bb065a67d7579f5ff8c328ebd1a4321206ba466d7b916af1ff01",
@@ -44,11 +43,11 @@ class AssyncController extends Controller
             echo json_encode($arr);
         }
     }
-    public function distrik()
+    public function distrik(Request $request)
     {
-        
-        $idProv_selected = $_POST['id_provinsi'];
-        // $idProv_selected = $request->id_provinsi;
+        // dd('halo');
+        // $idProv_selected = $_POST['id_provinsi'];
+        $idProv_selected = $request->id_provinsi;
         // dd($idProv_selected);
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -85,9 +84,10 @@ class AssyncController extends Controller
             echo json_encode($arr);
         }
     }
-    public function kecamatan()
+    public function kecamatan(Request $request)
     {
-        $idDistrik_selected = $_POST['id_kabupaten'];
+        // $idDistrik_selected = $_POST['id_kabupaten'];
+        $idDistrik_selected = $request->id_kabupaten;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.binderbyte.com/wilayah/kecamatan?api_key=66ecbcf00fd4bb065a67d7579f5ff8c328ebd1a4321206ba466d7b916af1ff01&id_kabupaten=" . $idDistrik_selected,
@@ -123,9 +123,10 @@ class AssyncController extends Controller
             echo json_encode($arr);
         }
     }
-    public function desa()
+    public function desa(Request $request)
     {
-        $idKec_selected = $_POST['id_kecamatan'];
+        // $idKec_selected = $_POST['id_kecamatan'];
+        $idKec_selected = $request->id_kecamatan;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.binderbyte.com/wilayah/kelurahan?api_key=66ecbcf00fd4bb065a67d7579f5ff8c328ebd1a4321206ba466d7b916af1ff01&id_kecamatan=" . $idKec_selected,

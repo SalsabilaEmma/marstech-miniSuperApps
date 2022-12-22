@@ -37,8 +37,11 @@
                                     <div class="form-group">
                                         <label>Foto KTP</label>
                                         <div class="input-group">
-                                            <input type="text" required name="foto_ktp" id="foto_ktp"
-                                                value="{{ $data_kredit->foto_ktp }}" class="form-control" readonly>
+                                            <div class="zoom">
+                                                <img id="file" class="profile-user-img img-responsive"
+                                                    style="height: 150px; width: auto; display: block; margin: auto;"
+                                                    src="{{ url('image/buka-kredit/' . $data_kredit->nama . '/' . $data_kredit->foto_ktp) }}">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -60,8 +63,11 @@
                                     <div class="form-group">
                                         <label>Foto</label>
                                         <div class="input-group">
-                                            <input type="text" required name="foto" id="foto"
-                                                value="{{ $data_kredit->foto }}" class="form-control" readonly>
+                                            <div class="zoom">
+                                                <img id="file" class="profile-user-img img-responsive"
+                                                    style="height: 150px; width: auto; display: block; margin: auto;"
+                                                    src="{{ url('image/buka-kredit/' . $data_kredit->nama . '/' . $data_kredit->foto) }}">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

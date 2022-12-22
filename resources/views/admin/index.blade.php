@@ -185,7 +185,7 @@
                     </div>
                     <div class="card ">
                         <div class="card-header">
-                            <h4>Total Pengikut</h4>
+                            <h4>Total Pengikut {{ $count_subscribe }} Akun</h4>
                             <div class="card-header-action">
                                 <a href="{{ route('subscribe.list') }}" class="btn btn-primary">View All</a>
                             </div>

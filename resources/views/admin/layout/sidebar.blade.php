@@ -17,8 +17,8 @@
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="list"></i><span>Calon
                         Nasabah</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('buka.deposito.list') }}">Pengajuan Buka Deposito</a></li>
                     <li><a class="nav-link" href="{{ route('buka.tabungan.list') }}">Pengajuan Buka Tabungan</a></li>
+                    <li><a class="nav-link" href="{{ route('buka.deposito.list') }}">Pengajuan Buka Deposito</a></li>
                     <li><a class="nav-link" href="{{ route('buka.kredit.list') }}">Pengajuan Pembiayaan</a></li>
                 </ul>
             </li>
@@ -37,8 +37,8 @@
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                         data-feather="shopping-bag"></i><span>Produk</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('produk.deposito.list') }}">Deposito</a></li>
                     <li><a class="nav-link" href="{{ route('produk.tabungan.list') }}">Tabungan</a></li>
+                    <li><a class="nav-link" href="{{ route('produk.deposito.list') }}">Deposito</a></li>
                     <li><a class="nav-link" href="{{ route('produk.kredit.list') }}">Kredit</a></li>
                 </ul>
             </li>

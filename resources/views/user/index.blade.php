@@ -1,5 +1,48 @@
 @extends('user.layout.app')
 @section('content')
+    <!-- Carousel wrapper -->
+    <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+
+        <!-- Inner -->
+        <div class="carousel-inner">
+            @foreach ($data_banner as $banner)
+                <!-- Single item -->
+                <div class="carousel-item active">
+                    <img src="{{ url('image/banner/' . $banner->file) }}" class="d-block w-100"
+                        alt="Sunset Over the City" />
+                    {{-- <div class="carousel-caption d-none d-md-block">
+                        <h5>First slide label</h5>
+                        <p>
+                            Nulla vitae elit libero, a pharetra augue mollis interdum.
+                        </p>
+                    </div> --}}
+                </div>
+            @endforeach
+            <!-- Inner -->
+
+            <!-- Controls -->
+            <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample"
+                data-mdb-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample"
+                data-mdb-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <!-- Carousel wrapper -->
+    </div>
     <!-- ======= Hero Section ======= -->
     {{-- <section id="hero" class="hero carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="10000">
         <div class="carousel-item active">
@@ -29,7 +72,7 @@
 
         <ol class="carousel-indicators"></ol>
 
-    </section><!-- End Hero Section --> --}}
+    </section> --}}
 
     <main id="main">
         <!-- ======= Call To Action Section ======= -->
@@ -433,17 +476,17 @@
                 <div class="swiper-wrapper">
 
                     @foreach ($data_video as $video)
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <div class="col-md-12">
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <div class="col-md-12">
                                     <iframe class="embed-responsive-item" style="height: 100%"
                                         src="https://www.youtube.com/embed/{{ explode('v=', $video->link)[1] }}"
                                         allowfullscreen>
                                     </iframe>
+                                </div>
+                                {{-- https://www.youtube.com/embed/{{ explode('v=',  $video->link)[1] }} --}}
                             </div>
-                            {{-- https://www.youtube.com/embed/{{ explode('v=',  $video->link)[1] }} --}}
-                        </div>
-                    </div><!-- End testimonial item -->
+                        </div><!-- End testimonial item -->
                     @endforeach
 
                 </div>

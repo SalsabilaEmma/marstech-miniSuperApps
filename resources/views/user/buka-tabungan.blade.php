@@ -5,10 +5,10 @@
         <div class="container">
 
             <div class="d-flex justify-content-between align-items-center">
-                <h2>Buka {{ $title }}</h2>
+                <h2>{{ $title }}</h2>
                 <ol>
                     <li><a href="{{ route('index') }}">Home</a></li>
-                    <li>Buka {{ $title }}</li>
+                    <li>{{ $title }}</li>
                 </ol>
             </div>
 
@@ -18,8 +18,20 @@
     <!-- ======= Blog Section ======= -->
     <section class="inner-page" data-aos="fade-up">
         <div class="container">
+            @if ($message = Session::get('sukses'))
+                <div class="alert alert-success alert-dismissible show fade">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
+            @if ($message = Session::get('eror'))
+                <div class="alert alert-danger alert-dismissible show fade">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
             <div class="section-header">
-                <h2>Buka {{ $title }}</h2>
+                <h2>{{ $title }}</h2>
                 <p>Example inner page template</p>
             </div>
             <div id="accordion">
@@ -124,14 +136,15 @@
         </div><br>
 
         <div class="container">
-            <form id="recaptcha-form" enctype="multipart/form-data" action="" method="post">
+            <form action="{{ route('buka.tabungan.store') }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm">
                         <h4 style="color:#484a46;"><strong>Data Pribadi</strong></h4>
                         <div class="form-group mt-3">
                             <label>NIK</label>
-                            <input required name="nik" value="" type="number" class="form-control" id="nik"
-                                placeholder="Masukkan NIK Sesuai KTP">
+                            <input required name="nik" value="" type="number" class="form-control"
+                                id="nik" placeholder="Masukkan NIK Sesuai KTP">
                         </div>
                         <div class="form-group mt-3">
                             <label>Nama Lengkap</label>
@@ -189,6 +202,21 @@
                             <label> </label>
                             <select name="produk_layanan" class="form-control" id="produk_layanan">
                                 <option selected hidden value="">- Produk Layanan -</option>
+                                <?php
+                                if ($title == 'Buka Tabungan') {
+                                    foreach ($data_tabungan as $tabungan) {
+                                        echo '<option value="' . $tabungan->judul . '">' . $tabungan->judul . '</option>';
+                                    }
+                                } elseif ($title == 'Buka Deposito') {
+                                    foreach ($data_deposito as $deposito) {
+                                        echo '<option value="' . $deposito->judul . '">' . $deposito->judul . '</option>';
+                                    }
+                                } else {
+                                    foreach ($data_kredit as $kredit) {
+                                        echo '<option value="' . $kredit->judul . '">' . $kredit->judul . '</option>';
+                                    }
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="form-group mt-3">
@@ -198,9 +226,10 @@
                         </div>
                         <div class="form-group mt-3 text-right">
                             {{-- <div class="g-recaptcha text-center" data-sitekey=""></div><br> --}}
-                            <button type="submit" class="btn btn-primary g-recaptcha"
+                            {{-- <button type="submit" class="btn btn-primary g-recaptcha"
                                 data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
-                                data-action='submit'>Kirim</button><br>
+                                data-action='submit'>Kirim</button><br> --}}
+                            <button type="submit" class="btn btn-primary">Kirim</button>
                         </div>
                     </div>
                 </div>
