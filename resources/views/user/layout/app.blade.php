@@ -152,7 +152,7 @@
                 $.ajax({
                     type: "get",
                     // url: "https://tunasarthabaru.co.id/assync/kecamatan",
-                url: "{{ route('kecamatan') }}",
+                    url: "{{ route('kecamatan') }}",
                     data: 'id_kabupaten=' + idDistrik_selected,
                     dataType: "JSON",
                     success: function(resKec) {
@@ -174,7 +174,7 @@
                 $.ajax({
                     type: "get",
                     // url: "https://tunasarthabaru.co.id/assync/desa",
-                url: "{{ route('desa') }}",
+                    url: "{{ route('desa') }}",
                     data: 'id_kecamatan=' + idKec_selected,
                     dataType: "JSON",
                     success: function(resDesa) {

@@ -45,6 +45,9 @@
                             </div>
                         @endforeach
                     </div>
+
+                    
+
                     {{-- <div class="carousel slide media-carousel" id="media">
                         <div class="carousel-inner">
                             @foreach ($data_lelang->gambar as $gambar)

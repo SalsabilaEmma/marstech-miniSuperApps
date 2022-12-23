@@ -44,6 +44,7 @@ use App\Http\Controllers\VideoInteraksiController;
 |
 */
 
+Route::GET('/try', [Controller::class, 'try'])->name('try');
 /** ------------------------------------------ USER -------------------------------------------------------- */
 Route::GET('/', [Controller::class, 'index'])->name('index');
 
@@ -109,9 +110,9 @@ Route::GET('/pengajuan-kredit', [PengajuanKreditController::class, 'index'])->na
 Route::POST('/buka-kredit/store', [PengajuanKreditController::class, 'store'])->name('buka.kredit.store');
 
 /** Produk ................................................................................................. */
-Route::GET('/produk-tabungan', [ProdukTabunganController::class, 'index'])->name('produk.tabungan');
-Route::GET('/produk-deposito', [ProdukDepositoController::class, 'index'])->name('produk.deposito');
-Route::GET('/produk-kredit', [ProdukKreditController::class, 'index'])->name('produk.kredit');
+Route::GET('/produk-tabungan/{id?}', [ProdukTabunganController::class, 'produk'])->name('produk.tabungan');
+Route::GET('/produk-deposito/{id?}', [ProdukDepositoController::class, 'index'])->name('produk.deposito');
+Route::GET('/produk-kredit/{id?}', [ProdukKreditController::class, 'index'])->name('produk.kredit');
 
 /** Subscribe ............................................................................................... */
 Route::POST('/', [SubscribeController::class, 'store'])->name('subscribe.store');

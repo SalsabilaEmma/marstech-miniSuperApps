@@ -26,6 +26,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function try()
+    {
+        return view('try');
+    }
+
     public function index()
     {
         $author = 'Admin BPR Ciki';

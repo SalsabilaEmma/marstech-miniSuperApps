@@ -1,8 +1,7 @@
 @extends('user.layout.app')
 @section('content')
     <!-- Carousel wrapper -->
-    <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
-        <!-- Indicators -->
+    {{-- <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="0" class="active"
                 aria-current="true" aria-label="Slide 1"></button>
@@ -12,7 +11,6 @@
                 aria-label="Slide 3"></button>
         </div>
 
-        <!-- Inner -->
         <div class="carousel-inner">
             @foreach ($data_banner as $banner)
                 <!-- Single item -->
@@ -24,7 +22,7 @@
                         <p>
                             Nulla vitae elit libero, a pharetra augue mollis interdum.
                         </p>
-                    </div> --}}
+                    </div>
                 </div>
             @endforeach
             <!-- Inner -->
@@ -42,26 +40,42 @@
             </button>
         </div>
         <!-- Carousel wrapper -->
+    </div> --}}
+
+  <section id="hero-fullscreen" class="hero-fullscreen d-flex align-items-center">
+    <div class="container d-flex flex-column align-items-center position-relative" data-aos="zoom-out">
+      <h2>Welcome to <span>HeroBiz</span></h2>
+      <p>Et voluptate esse accusantium accusamus natus reiciendis quidem voluptates similique aut.</p>
+      {{-- <div class="d-flex">
+        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+        <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+      </div> --}}
     </div>
+  </section>
     <!-- ======= Hero Section ======= -->
-    {{-- <section id="hero" class="hero carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="10000">
-        <div class="carousel-item active">
-            <div class="container">
-                <div class="row justify-content-center gy-6">
-                    @foreach ($data_banner as $banner)
+    {{-- <section id="hero" class="hero carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+        @foreach ($data_banner as $banner)
+            <div class="carousel-item active">
+                <div class="container">
+                    <div class="row justify-content-center gy-6">
+
                         <div class="col-lg-5 col-md-8">
                             <img src="{{ url('image/banner/' . $banner->file) }}" alt="" class="img-fluid img">
                         </div>
 
                         <div class="col-lg-9 text-center">
-                            <h2>{{ $banner->nama }}</h2>
-                            <p>{{ $banner->ket }}</p>
+                            <h2>Welcome to HeroBiz</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <a href="#featured-services" class="btn-get-started scrollto ">Get Started</a>
                         </div>
-                        @break
-                    @endforeach
+
+                    </div>
                 </div>
-            </div>
-        </div><!-- End Carousel Item -->
+            </div><!-- End Carousel Item -->
+        @endforeach
+
         <a class="carousel-control-prev" href="#hero" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
         </a>
@@ -73,6 +87,7 @@
         <ol class="carousel-indicators"></ol>
 
     </section> --}}
+    <!-- End Hero Section -->
 
     <main id="main">
         <!-- ======= Call To Action Section ======= -->

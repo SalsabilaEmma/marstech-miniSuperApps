@@ -6,10 +6,10 @@
         <div class="container">
 
           <div class="d-flex justify-content-between align-items-center">
-            <h2>Produk Tabungan ...</h2>
+            <h2>Produk Tabungan</h2>
             <ol>
               <li><a href="{{ route('index') }}">Home</a></li>
-              <li>Produk Tabungan..</li>
+              <li>Produk Tabungan</li>
             </ol>
           </div>
 
@@ -21,13 +21,10 @@
         <div class="container" data-aos="fade-up">
 
           <div class="section-header">
-            <h2>Produk Tabungan...</h2>
-            <p>Example inner page template</p>
+            <h2>Produk Tabungan {{ $data_tabungan->judul }}</h2>
           </div>
 
-          <p>
-            You can duplicate this page and create any number of pages you like!
-          </p>
+          <p>{{ $data_tabungan->isi }}</p>
 
         </div>
       </section><!-- End Inner Page -->

@@ -14,6 +14,13 @@ class ProdukTabunganController extends Controller
         return view('user.produk-tabungan', compact('title'));
     }
 
+    public function produk($id)
+    {
+        $title = 'Produk Tabungan';
+        $data_tabungan = Tabungan::findOrFail($id);
+        return view('user.produk-tabungan', compact('title','data_tabungan'));
+    }
+
     /**  Admin Side -------------------------------------------------------------------------------------------------- */
     public function list()
     {
