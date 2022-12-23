@@ -18,6 +18,18 @@
     <!-- ======= Blog Section ======= -->
     <section class="inner-page" data-aos="fade-up">
         <div class="container">
+            @if ($message = Session::get('sukses'))
+                <div class="alert alert-success alert-dismissible show fade">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
+            @if ($message = Session::get('eror'))
+                <div class="alert alert-danger alert-dismissible show fade">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
             <div class="section-header">
                 <h2>Pengajuan {{ $title }}</h2>
                 <p>Example inner page template</p>
@@ -99,21 +111,24 @@
                     <div class="row">
                         <div class="col-sm text-center">
                             <h6 style="color:#3d6098;" class="text-center"><strong>Produk Tabungan</strong></h6>
-                            {{-- <?php foreach ($tabungan as $kt => $vt) { ?>
-                            <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('tabungan/show/') . $vt->id_tabungan; ?>"><?php echo $vt->judul; ?></a>
-                            <?php } ?> --}}
+                            @foreach ($data_tabungan as $tabungan)
+                                <a class="btn btn-outline-dark btn-sm"
+                                    href="{{ route('produk.tabungan', $tabungan->id) }}">{{ $tabungan->judul }}</a>
+                            @endforeach
                         </div>
                         <div class="col-sm text-center">
-                            <h6 style="color:#3d6098;" class="text-center"><strong>Produk {{ $title }}</strong></h6>
-                            {{-- <?php foreach ($pembiayaan as $kk => $vk) { ?>
-                            <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('pembiayaan/show/') . $vk->id_pembiayaan; ?>"><?php echo $vk->judul; ?></a>
-                            <?php } ?> --}}
+                            <h6 style="color:#3d6098;" class="text-center"><strong>Produk Kredit</strong></h6>
+                            @foreach ($data_kredit as $kredit)
+                                <a class="btn btn-outline-dark btn-sm"
+                                    href="{{ route('produk.kredit', $kredit->id) }}">{{ $kredit->judul }}</a>
+                            @endforeach
                         </div>
                         <div class="col-sm text-center">
                             <h6 style="color:#3d6098;" class="text-center"><strong>Produk Deposito</strong></h6>
-                            {{-- <?php foreach ($deposito as $kd => $vd) { ?>
-                            <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('deposito/show/') . $vd->id_deposito; ?>"><?php echo $vd->judul; ?></a>
-                            <?php } ?> --}}
+                            @foreach ($data_deposito as $deposito)
+                                <a class="btn btn-outline-dark btn-sm"
+                                    href="{{ route('produk.deposito', $deposito->id) }}">{{ $deposito->judul }}</a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -121,12 +136,11 @@
         </div><br>
 
         <div class="container">
-            <form action="{{ route('buka.kredit.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('buka.kredit.store') }}" method="POST" enctype="multipart/form-data" id="recaptcha-form">
                 {{ csrf_field() }}
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm">
                         <h4 style="color:#484a46;"><strong>Data Pribadi</strong></h4>
-                        <!--   -->
                         <div class="form-group mt-3">
                             <label>NIK</label>
                             <input required name="nik" value="" type="number" class="form-control" id="nik"
@@ -149,11 +163,13 @@
                         </div>
                         <div class="form-group mt-3">
                             <label>Foto</label>
-                            <input required name="foto" type="file" class="form-control" id="foto">
+                            <input required name="foto" type="file" class="form-control" id="foto" accept="image/*" id="file-input"
+                            onchange="imageExtensionValidate(this)">
                         </div>
                         <div class="form-group mt-3">
                             <label>Foto KTP</label>
-                            <input required name="foto_ktp" type="file" class="form-control" id="foto_ktp">
+                            <input required name="foto_ktp" type="file" class="form-control" id="foto_ktp" accept="image/*" id="file-input"
+                            onchange="imageExtensionValidate(this)">
                         </div>
                     </div>
                     <div class="col-sm">
@@ -196,25 +212,26 @@
                             <label> </label>
                             <select name="produk_layanan" class="form-control" id="produk_layanan">
                                 <option selected hidden value="">- Produk Layanan -</option>
+                                <?php
+                                if ($title == 'Buka Tabungan') {
+                                    foreach ($data_tabungan as $tabungan) {
+                                        echo '<option value="' . $tabungan->judul . '">' . $tabungan->judul . '</option>';
+                                    }
+                                } elseif ($title == 'Buka Deposito') {
+                                    foreach ($data_deposito as $deposito) {
+                                        echo '<option value="' . $deposito->judul . '">' . $deposito->judul . '</option>';
+                                    }
+                                } else {
+                                    foreach ($data_kredit as $kredit) {
+                                        echo '<option value="' . $kredit->judul . '">' . $kredit->judul . '</option>';
+                                    }
+                                }
+                                ?>
                             </select>
-                            <?php
-                            if ($title == 'Buka Tabungan') {
-                                foreach ($data_tabungan as $tabungan) {
-                                    echo '<option value="' . $tabungan->judul . '">' . $tabungan->judul . '</option>';
-                                }
-                            } elseif ($title == 'Buka Deposito') {
-                                foreach ($data_deposito as $deposito) {
-                                    echo '<option value="' . $deposito->judul . '">' . $deposito->judul . '</option>';
-                                }
-                            } else {
-                                foreach ($data_kredit as $kredit) {
-                                    echo '<option value="' . $kredit->judul . '">' . $kredit->judul . '</option>';
-                                }
-                            }
-                            ?>
                         </div>
 
-                        <br><h4 style="color:#484a46;"><strong>Pinjaman</strong></h4>
+                        <br>
+                        <h4 style="color:#484a46;"><strong>Pinjaman</strong></h4>
                         <div class="form-group mt-3">
                             <label>Jumlah Pinjaman</label>
                             <input required name="jumlah_pinjaman" value="" type="number" class="form-control"
@@ -232,8 +249,8 @@
                         </div>
                         <div class="form-group mt-3">
                             <label>Foto Jaminan</label>
-                            <input required name="foto_jaminan" value="" type="file" class="form-control"
-                                id="foto_jaminan">
+                            <input required name="foto_jaminan" value="" type="file" class="form-control" accept="image/*" id="file-input"
+                            onchange="imageExtensionValidate(this)" id="foto_jaminan">
                         </div>
                         <div class="form-group mt-3">
                             <p>Dengan klik Pengajuan {{ $title }} maka Petugas kami dapat segera membantu Anda untuk
@@ -241,11 +258,10 @@
                                 Pengajuan {{ $title }} di BPR. Punya Ciki</p>
                         </div>
                         <div class="form-group mt-3 text-right">
-                            {{-- <div class="g-recaptcha text-center" data-sitekey=""></div><br> --}}
-                            {{-- <button type="submit" class="btn btn-primary g-recaptcha"
+                            <button type="submit" class="btn btn-primary g-recaptcha"
                                 data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
-                                data-action='submit'>Kirim</button><br> --}}
-                            <button type="submit" class="btn btn-primary">Kirim</button>
+                                data-action='submit'>Kirim</button><br>
+                            {{-- <button type="submit" class="btn btn-primary">Kirim</button> --}}
                         </div>
                     </div>
                 </div>

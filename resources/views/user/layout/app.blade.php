@@ -98,15 +98,14 @@
 
 
     <!-- GOOGLE RECAPTCHA -->
-
     <script src="https://www.google.com/recaptcha/api.js"></script>
-
     <script>
         function onSubmit(token) {
             document.getElementById("recaptcha-form").submit();
         }
     </script>
-    {{-- <script src="{{ url('HeroBiz') }}/assets/js/wilayah.js"></script> --}}
+
+    <!-- Wilayah -->
     <script>
         $(document).ready(function() {
             $.ajax({

@@ -49,7 +49,7 @@
                                             @foreach ($data_deposito as $deposito)
                                                 <tr>
                                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                                    <td>{{ date('d F Y', strtotime($deposito->tanggal)) }}</td>
+                                                    <td>{{ date('d F Y', strtotime($deposito->created_at)) }}</td>
                                                     <td>{{ $deposito->nama }}</td>
                                                     <td>{{ $deposito->produk_layanan}}</td>
                                                     <td class="text-center">

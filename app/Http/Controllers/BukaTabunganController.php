@@ -47,6 +47,7 @@ class BukaTabunganController extends Controller
             /** bikin folder baru tiap upload sesuai id parent */
         }
 
+        /** Foto */
         $foto = $request->file('foto');
         $judulfoto = time() . '.' . $foto->getClientOriginalExtension();
         Image::make($foto)->resize(400, 400, function ($constraint) {  // thumbnail
@@ -54,6 +55,7 @@ class BukaTabunganController extends Controller
         })->save('image/buka-tabungan/' . $request->nama . '/' . $judulfoto);
         $foto->move('image/buka-tabungan-original/' . $request->nama . '/' . $judulfoto); // ukuran file asli
 
+        /** Foto KTP */
         $foto_ktp = $request->file('foto_ktp');
         $judulktp = 'ktp-' . time() . '.' . $foto_ktp->getClientOriginalExtension();
         Image::make($foto_ktp)->resize(400, 400, function ($constraint) {  // thumbnail

@@ -45,6 +45,7 @@ class BukaDepositoController extends Controller
             /** bikin folder baru tiap upload sesuai id parent */
         }
 
+        /** Foto */
         $foto = $request->file('foto');
         $judulfoto = time() . '.' . $foto->getClientOriginalExtension();
         Image::make($foto)->resize(400, 400, function ($constraint) {  // thumbnail
@@ -52,6 +53,7 @@ class BukaDepositoController extends Controller
         })->save('image/buka-deposito/' . $request->nama . '/' . $judulfoto);
         $foto->move('image/buka-deposito-original/' . $request->nama . '/' . $judulfoto); // ukuran file asli
 
+        /** Foto KTP */
         $foto_ktp = $request->file('foto_ktp');
         $judulktp = 'ktp-' . time() . '.' . $foto_ktp->getClientOriginalExtension();
         Image::make($foto_ktp)->resize(400, 400, function ($constraint) {  // thumbnail
@@ -81,10 +83,8 @@ class BukaDepositoController extends Controller
     public function list()
     {
         $title = 'Buka Deposito';
-        $data_tabungan = Tabungan::latest()->get();
-        $data_deposito = Deposito::latest()->get();
-        $data_kredit = Kredit::latest()->get();
-        return view('admin.deposito.list', compact('title','data_tabungan','data_deposito','data_kredit'));
+        $data_deposito = BukaDeposito::latest()->get();
+        return view('admin.deposito.list', compact('title','data_deposito'));
     }
 
     public function detail($id)

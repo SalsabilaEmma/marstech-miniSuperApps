@@ -136,7 +136,7 @@
         </div><br>
 
         <div class="container">
-            <form action="{{ route('buka.tabungan.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('buka.tabungan.store') }}" method="POST" enctype="multipart/form-data" id="recaptcha-form">
                 {{ csrf_field() }}
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm">
@@ -163,11 +163,13 @@
                         </div>
                         <div class="form-group mt-3">
                             <label>Foto</label>
-                            <input required name="foto" type="file" class="form-control" id="foto">
+                            <input required name="foto" type="file" class="form-control" id="foto" accept="image/*" id="file-input"
+                            onchange="imageExtensionValidate(this)">
                         </div>
                         <div class="form-group mt-3">
                             <label>Foto KTP</label>
-                            <input required name="foto_ktp" type="file" class="form-control" id="foto_ktp">
+                            <input required name="foto_ktp" type="file" class="form-control" id="foto_ktp" accept="image/*" id="file-input"
+                            onchange="imageExtensionValidate(this)">
                         </div>
                     </div>
                     <div class="col-sm">
@@ -226,10 +228,9 @@
                         </div>
                         <div class="form-group mt-3 text-right">
                             {{-- <div class="g-recaptcha text-center" data-sitekey=""></div><br> --}}
-                            {{-- <button type="submit" class="btn btn-primary g-recaptcha"
+                            <button type="submit" class="btn btn-primary g-recaptcha"
                                 data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
-                                data-action='submit'>Kirim</button><br> --}}
-                            <button type="submit" class="btn btn-primary">Kirim</button>
+                                data-action='submit'>Kirim</button><br>
                         </div>
                     </div>
                 </div>

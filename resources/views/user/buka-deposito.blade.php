@@ -110,21 +110,24 @@
                     <div class="row">
                         <div class="col-sm text-center">
                             <h6 style="color:#3d6098;" class="text-center"><strong>Produk Tabungan</strong></h6>
-                            {{-- <?php foreach ($tabungan as $kt => $vt) { ?>
-                            <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('tabungan/show/') . $vt->id_tabungan; ?>"><?php echo $vt->judul; ?></a>
-                            <?php } ?> --}}
+                            @foreach ($data_tabungan as $tabungan)
+                                <a class="btn btn-outline-dark btn-sm"
+                                    href="{{ route('produk.tabungan', $tabungan->id) }}">{{ $tabungan->judul }}</a>
+                            @endforeach
                         </div>
                         <div class="col-sm text-center">
                             <h6 style="color:#3d6098;" class="text-center"><strong>Produk Kredit</strong></h6>
-                            {{-- <?php foreach ($pembiayaan as $kk => $vk) { ?>
-                            <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('pembiayaan/show/') . $vk->id_pembiayaan; ?>"><?php echo $vk->judul; ?></a>
-                            <?php } ?> --}}
+                            @foreach ($data_kredit as $kredit)
+                                <a class="btn btn-outline-dark btn-sm"
+                                    href="{{ route('produk.kredit', $kredit->id) }}">{{ $kredit->judul }}</a>
+                            @endforeach
                         </div>
                         <div class="col-sm text-center">
                             <h6 style="color:#3d6098;" class="text-center"><strong>Produk Deposito</strong></h6>
-                            {{-- <?php foreach ($deposito as $kd => $vd) { ?>
-                            <a class="btn btn-outline-dark btn-sm" href="<?php echo site_url('deposito/show/') . $vd->id_deposito; ?>"><?php echo $vd->judul; ?></a>
-                            <?php } ?> --}}
+                            @foreach ($data_deposito as $deposito)
+                                <a class="btn btn-outline-dark btn-sm"
+                                    href="{{ route('produk.deposito', $deposito->id) }}">{{ $deposito->judul }}</a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -132,7 +135,7 @@
         </div><br>
 
         <div class="container">
-            <form action="{{ route('buka.deposito.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('buka.deposito.store') }}" method="POST" enctype="multipart/form-data" id="recaptcha-form">
                 {{ csrf_field() }}
                 <div class="row" style="padding-top: 50px;">
                     <div class="col-sm">
@@ -159,11 +162,13 @@
                         </div>
                         <div class="form-group mt-3">
                             <label>Foto</label>
-                            <input required name="foto" type="file" class="form-control" id="foto">
+                            <input required name="foto" type="file" class="form-control" id="foto" accept="image/*" id="file-input"
+                            onchange="imageExtensionValidate(this)">
                         </div>
                         <div class="form-group mt-3">
                             <label>Foto KTP</label>
-                            <input required name="foto_ktp" type="file" class="form-control" id="foto_ktp">
+                            <input required name="foto_ktp" type="file" class="form-control" id="foto_ktp" accept="image/*" id="file-input"
+                            onchange="imageExtensionValidate(this)">
                         </div>
                     </div>
                     <div class="col-sm">
@@ -221,10 +226,9 @@
                         </div>
                         <div class="form-group mt-3 text-right">
                             {{-- <div class="text-center" data-sitekey=""></div><br> --}}
-                            {{-- <button type="submit" class="btn btn-primary g-recaptcha"
+                            <button type="submit" class="btn btn-primary g-recaptcha"
                                 data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit'
-                                data-action='submit'>Kirim</button><br> --}}
-                            <button type="submit" class="btn btn-primary">Kirim</button>
+                                data-action='submit'>Kirim</button><br>
                         </div>
                     </div>
                 </div>

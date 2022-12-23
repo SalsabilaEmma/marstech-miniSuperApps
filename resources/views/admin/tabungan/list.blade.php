@@ -49,7 +49,7 @@
                                             @foreach ($data_tabungan as $tabungan)
                                                 <tr>
                                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                                    <td>{{ date('d F Y', strtotime($tabungan->tanggal)) }}</td>
+                                                    <td>{{ date('d F Y', strtotime($tabungan->created_at)) }}</td>
                                                     <td>{{ $tabungan->nama }}</td>
                                                     <td>{{ $tabungan->produk_layanan}}</td>
                                                     <td class="text-center">
