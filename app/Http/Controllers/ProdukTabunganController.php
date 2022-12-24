@@ -24,6 +24,7 @@ class ProdukTabunganController extends Controller
     /**  Admin Side -------------------------------------------------------------------------------------------------- */
     public function list()
     {
+        // dd('halo');
         $title = 'Produk Tabungan';
         $data_tabungan = Tabungan::latest()->get();
         // $data_tabungan = Deposito::with('data_tabungan')->get();

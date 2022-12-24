@@ -34,9 +34,9 @@
                                 <div class="form-group">
                                     <label>Deskripsi</label>
                                     <div class="input-group">
-                                        <input type="text" required name="isi" id="isi"
+                                        <textarea type="text" required name="isi" id="isi"
                                             value="{{ $data_deposito->isi }}"
-                                            class="form-control @error('isi') is-invalid @enderror">
+                                            class="summernote form-control @error('isi') is-invalid @enderror">{{ $data_deposito->isi }}</textarea>
                                         @error('isi')
                                             <small>{{ $message }}</small>
                                         @enderror

@@ -14,6 +14,12 @@ class ProdukKreditController extends Controller
         $title = 'Produk Kredit';
         return view('user.produk-kredit', compact('title'));
     }
+    public function produk($id)
+    {
+        $title = 'Produk Kredit';
+        $data_kredit = Kredit::findOrFail($id);
+        return view('user.produk-kredit', compact('title','data_kredit'));
+    }
 
     /**  Admin Side -------------------------------------------------------------------------------------------------- */
 

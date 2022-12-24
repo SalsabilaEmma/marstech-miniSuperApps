@@ -111,8 +111,8 @@ Route::POST('/buka-kredit/store', [PengajuanKreditController::class, 'store'])->
 
 /** Produk ................................................................................................. */
 Route::GET('/produk-tabungan/{id?}', [ProdukTabunganController::class, 'produk'])->name('produk.tabungan');
-Route::GET('/produk-deposito/{id?}', [ProdukDepositoController::class, 'index'])->name('produk.deposito');
-Route::GET('/produk-kredit/{id?}', [ProdukKreditController::class, 'index'])->name('produk.kredit');
+Route::GET('/produk-deposito/{id?}', [ProdukDepositoController::class, 'produk'])->name('produk.deposito');
+Route::GET('/produk-kredit/{id?}', [ProdukKreditController::class, 'produk'])->name('produk.kredit');
 
 /** Subscribe ............................................................................................... */
 Route::POST('/', [SubscribeController::class, 'store'])->name('subscribe.store');
@@ -158,24 +158,24 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::DELETE('/subscribe/delete/{id?}', [SubscribeController::class, 'destroy'])->name('subscribe.destroy');
 
     /** -------------------------------------------------------------------------------------------------- Produkk Dropdown */
-    /** Produk Deposito ............................................................................................. */
-    Route::GET('/produk-deposito/list', [ProdukDepositoController::class, 'list'])->name('produk.deposito.list');
-    Route::POST('/produk-deposito/store', [ProdukDepositoController::class, 'store'])->name('produk.deposito.store');
-    Route::GET('/produk-deposito/edit/{id?}', [ProdukDepositoController::class, 'edit'])->name('produk.deposito.edit');
-    Route::POST('/produk-deposito/update/{id?}', [ProdukDepositoController::class, 'update'])->name('produk.deposito.update');
-    Route::DELETE('/produk-deposito/delete/{id?}', [ProdukDepositoController::class, 'destroy'])->name('produk.deposito.destroy');
     /** Produk Tabungan ............................................................................................. */
-    Route::GET('/produk-tabungan/list', [ProdukTabunganController::class, 'list'])->name('produk.tabungan.list');
-    Route::POST('/produk-tabungan/store', [ProdukTabunganController::class, 'store'])->name('produk.tabungan.store');
-    Route::GET('/produk-tabungan/edit/{id?}', [ProdukTabunganController::class, 'edit'])->name('produk.tabungan.edit');
-    Route::POST('/produk-tabungan/update/{id?}', [ProdukTabunganController::class, 'update'])->name('produk.tabungan.update');
-    Route::DELETE('/produk-tabungan/delete/{id?}', [ProdukTabunganController::class, 'destroy'])->name('produk.tabungan.destroy');
+    Route::GET('/tabungan/list', [ProdukTabunganController::class, 'list'])->name('produk.tabungan.list');
+    Route::POST('/tabungan/store', [ProdukTabunganController::class, 'store'])->name('produk.tabungan.store');
+    Route::GET('/tabungan/edit/{id?}', [ProdukTabunganController::class, 'edit'])->name('produk.tabungan.edit');
+    Route::POST('/tabungan/update/{id?}', [ProdukTabunganController::class, 'update'])->name('produk.tabungan.update');
+    Route::DELETE('/tabungan/delete/{id?}', [ProdukTabunganController::class, 'destroy'])->name('produk.tabungan.destroy');
+    /** Produk Deposito ............................................................................................. */
+    Route::GET('/deposito/list', [ProdukDepositoController::class, 'list'])->name('produk.deposito.list');
+    Route::POST('/deposito/store', [ProdukDepositoController::class, 'store'])->name('produk.deposito.store');
+    Route::GET('/deposito/edit/{id?}', [ProdukDepositoController::class, 'edit'])->name('produk.deposito.edit');
+    Route::POST('/deposito/update/{id?}', [ProdukDepositoController::class, 'update'])->name('produk.deposito.update');
+    Route::DELETE('/deposito/delete/{id?}', [ProdukDepositoController::class, 'destroy'])->name('produk.deposito.destroy');
     /** Produk Kredit ............................................................................................. */
-    Route::GET('/produk-kredit/list', [ProdukKreditController::class, 'list'])->name('produk.kredit.list');
-    Route::POST('/produk-kredit/store', [ProdukKreditController::class, 'store'])->name('produk.kredit.store');
-    Route::GET('/produk-kredit/edit/{id?}', [ProdukKreditController::class, 'edit'])->name('produk.kredit.edit');
-    Route::POST('/produk-kredit/update/{id?}', [ProdukKreditController::class, 'update'])->name('produk.kredit.update');
-    Route::DELETE('/produk-kredit/delete/{id?}', [ProdukKreditController::class, 'destroy'])->name('produk.kredit.destroy');
+    Route::GET('/kredit/list', [ProdukKreditController::class, 'list'])->name('produk.kredit.list');
+    Route::POST('/kredit/store', [ProdukKreditController::class, 'store'])->name('produk.kredit.store');
+    Route::GET('/kredit/edit/{id?}', [ProdukKreditController::class, 'edit'])->name('produk.kredit.edit');
+    Route::POST('/kredit/update/{id?}', [ProdukKreditController::class, 'update'])->name('produk.kredit.update');
+    Route::DELETE('/kredit/delete/{id?}', [ProdukKreditController::class, 'destroy'])->name('produk.kredit.destroy');
     /** -------------------------------------------------------------------------------------------------- End Produk Dropdown */
 
     /** Banner ............................................................................................. */

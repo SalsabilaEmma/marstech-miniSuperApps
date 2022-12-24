@@ -100,7 +100,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('produk.tabungan.store') }}" id="recaptcha-form" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('produk.tabungan.store') }}" id="recaptcha-form" method="POST"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Judul {{ $title }}</label>
@@ -115,16 +116,16 @@
                         <div class="form-group">
                             <label>Deskripsi</label>
                             <div class="input-group">
-                                {{-- <textarea name="isi" class="summernote @error('isi') is-invalid @enderror" placeholder="Deskripsi Produk Tabungan"></textarea>
+                                <textarea name="isi" class="summernote @error('isi') is-invalid @enderror" placeholder="Deskripsi Produk Tabungan"></textarea>
                                 @error('isi')
                                     <small>{{ $message }}</small>
-                                @enderror --}}
-                                <input type="text" required name="isi"
+                                @enderror
+                                {{-- <input type="text" required name="isi"
                                     class="form-control @error('isi') is-invalid @enderror"
                                     placeholder="Deskripsi Produk Tabungan">
                                 @error('isi')
                                     <small>{{ $message }}</small>
-                                @enderror
+                                @enderror --}}
                             </div>
                         </div>
                         <div class="text-right">
@@ -163,7 +164,7 @@
                         <div class="input-group">
                             <input type="hidden" name="id" id="id">
                             <input type="text" required name="isi" id="isi" value=""
-                                class="form-control" name="isi" readonly>
+                                class="summernote form-control" name="isi" readonly>
                         </div>
                     </div>
                     {{-- <div class="form-group">
@@ -236,6 +237,7 @@
             $("#lihatdata").find("#id").attr("value", $(this).data('id'));
             $("#lihatdata").find("#judul").attr("value", $(this).data('judul'));
             $("#lihatdata").find("#isi").attr("value", $(this).data('isi'));
+            $('#isi').summernote('code',($(this).data('isi')));
             // $("#lihatdata").find("#created_at").attr("value", $(this).data('created_at'));
         });
     });

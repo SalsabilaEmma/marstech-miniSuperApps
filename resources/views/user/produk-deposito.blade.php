@@ -24,7 +24,7 @@
                 <h2>Produk Deposito {{ $data_deposito->judul }}</h2>
               </div>
 
-              <p>{{ $data_deposito->isi }}</p>
+              <p>{!! $data_deposito->isi !!}</p>
 
         </div>
       </section><!-- End Inner Page -->

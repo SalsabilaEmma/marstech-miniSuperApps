@@ -17,9 +17,11 @@ class ProdukDepositoController extends Controller
         return view('user.produk-deposito', compact('title'));
     }
 
-    public function create()
+    public function produk($id)
     {
-        //
+        $title = 'Produk Deposito';
+        $data_deposito = Deposito::findOrFail($id);
+        return view('user.produk-deposito', compact('title','data_deposito'));
     }
 
     public function show($id)

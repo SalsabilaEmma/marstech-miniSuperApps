@@ -24,7 +24,7 @@
             <h2>Produk Tabungan {{ $data_tabungan->judul }}</h2>
           </div>
 
-          <p>{{ $data_tabungan->isi }}</p>
+          <p>{!! $data_tabungan->isi !!}</p>
 
         </div>
       </section><!-- End Inner Page -->

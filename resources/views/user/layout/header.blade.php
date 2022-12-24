@@ -24,19 +24,19 @@
                             $data_kredit = Kredit::latest()->get();
                         @endphp
                         <li>
-                            <strong style="color:grey;">Tabungan</strong>
+                            <strong style="color:#9aa3ad;">Tabungan</strong>
                             @foreach ($data_tabungan as $tabungan)
                                 <a href="{{ route('produk.tabungan', $tabungan->id) }}">{{ $tabungan->judul }}</a>
                             @endforeach
                         </li>
                         <li>
-                            <strong style="color:grey;">Deposito</strong>
+                            <strong style="color:#9aa3ad;">Deposito</strong>
                             @foreach ($data_deposito as $deposito)
                                 <a href="{{ route('produk.deposito', $deposito->id) }}">{{ $deposito->judul }}</a>
                             @endforeach
                         </li>
                         <li>
-                            <strong style="color:grey;">Kredit</strong>
+                            <strong style="color:#9aa3ad;">Kredit</strong>
                             @foreach ($data_kredit as $kredit)
                                 <a href="{{ route('produk.kredit', $kredit->id) }}">{{ $kredit->judul }}</a>
                             @endforeach

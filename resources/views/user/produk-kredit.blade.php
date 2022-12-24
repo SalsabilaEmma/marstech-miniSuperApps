@@ -24,7 +24,7 @@
                 <h2>Produk Kredit {{ $data_kredit->judul }}</h2>
               </div>
 
-              <p>{{ $data_kredit->isi }}</p>
+              <p>{!! $data_kredit->isi !!}</p>
 
         </div>
       </section><!-- End Inner Page -->

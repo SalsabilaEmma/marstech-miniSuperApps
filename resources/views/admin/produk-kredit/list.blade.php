@@ -109,16 +109,16 @@
                         <div class="form-group">
                             <label>Deskripsi</label>
                             <div class="input-group">
-                                {{-- <textarea name="isi" class="summernote @error('isi') is-invalid @enderror" placeholder="Deskripsi Produk Kredit"></textarea>
+                                <textarea name="isi" class="summernote @error('isi') is-invalid @enderror" placeholder="Deskripsi Produk Kredit"></textarea>
                                 @error('isi')
                                     <small>{{ $message }}</small>
-                                @enderror --}}
-                                <input type="text" required name="isi"
+                                @enderror
+                                {{-- <input type="text" required name="isi"
                                     class="form-control @error('isi') is-invalid @enderror"
                                     placeholder="Deskripsi Produk Kredit">
                                 @error('isi')
                                     <small>{{ $message }}</small>
-                                @enderror
+                                @enderror --}}
                             </div>
                         </div>
                         <div class="text-right">
@@ -177,6 +177,7 @@
             $("#lihatdata").find("#id").attr("value", $(this).data('id'));
             $("#lihatdata").find("#judul").attr("value", $(this).data('judul'));
             $("#lihatdata").find("#isi").attr("value", $(this).data('isi'));
+            $('#isi').summernote('code',($(this).data('isi')));
         });
     });
 </script>
